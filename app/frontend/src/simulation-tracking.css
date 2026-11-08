@@ -1,0 +1,232 @@
+.sim-tracking {
+  --tracking-accent-text: #a82727;
+  container-type: inline-size;
+  border-radius: 16px;
+  background: var(--soft);
+}
+
+.sim-tracking .sim-section-heading {
+  border-bottom: 0;
+}
+
+.sim-tracking-clock {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--paper);
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.sim-tracking-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  align-items: stretch;
+  padding: 0 12px 12px;
+}
+
+.sim-tracking-card {
+  min-width: 0;
+  margin: 0;
+  padding: 15px 14px 13px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper);
+}
+
+.sim-tracking-card:only-child { grid-column: 1 / -1; }
+
+.sim-tracking-party {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.sim-tracking-party h3 { font-size: 16px; }
+.sim-tracking-party p { margin-top: 2px; color: var(--muted); font-size: 12px; }
+.sim-tracking-service {
+  flex: none;
+  padding: 3px 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.sim-tracking-steps,
+.sim-tracking-checkpoints {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sim-tracking-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 33px minmax(0, 1fr);
+  gap: 9px;
+  min-height: 41px;
+}
+
+.sim-tracking-step:not(:last-child)::after {
+  position: absolute;
+  top: 30px;
+  bottom: 0;
+  left: 15px;
+  width: 2px;
+  background: var(--line);
+  content: '';
+}
+
+.sim-tracking-step[data-state="done"]::after { background: var(--red); }
+.sim-tracking-step[data-state="prior"]::after {
+  background: repeating-linear-gradient(to bottom, var(--line) 0 3px, transparent 3px 6px);
+}
+
+.sim-tracking-marker {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border: 2px solid var(--line);
+  border-radius: 50%;
+  background: var(--soft);
+  color: var(--muted);
+  z-index: 1;
+}
+
+.sim-tracking-marker svg { width: 18px; height: 18px; }
+.sim-tracking-step[data-state="done"] .sim-tracking-marker {
+  border-color: #f3cbcb;
+  background: var(--selected);
+  color: var(--tracking-accent-text);
+}
+
+.sim-tracking-step[data-state="current"] .sim-tracking-marker {
+  border-color: #f3cbcb;
+  background: var(--red);
+  color: #fff;
+}
+
+.sim-tracking-step[data-state="pending"] .sim-tracking-marker,
+.sim-tracking-step[data-state="prior"] .sim-tracking-marker {
+  border-style: dashed;
+}
+
+.sim-tracking-milestone { min-width: 0; padding: 4px 0 10px; }
+.sim-tracking-step-line,
+.sim-tracking-checkpoints > li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  column-gap: 8px;
+}
+
+.sim-tracking-milestone summary { cursor: pointer; list-style: none; }
+.sim-tracking-milestone summary::-webkit-details-marker { display: none; }
+.sim-tracking-milestone summary .sim-tracking-title::after {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin: 0 0 3px 7px;
+  border-right: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  transform: rotate(45deg);
+  content: '';
+}
+
+.sim-tracking-milestone[open] summary .sim-tracking-title::after {
+  margin-bottom: 0;
+  transform: rotate(225deg);
+}
+
+.sim-tracking-title { font-size: 13px; font-weight: 600; overflow-wrap: anywhere; }
+.sim-tracking-step[data-state="current"] .sim-tracking-title { color: var(--tracking-accent-text); font-weight: 700; }
+.sim-tracking-step:is([data-state="future"], [data-state="prior"]) .sim-tracking-title { color: var(--muted); }
+.sim-tracking-time { color: var(--muted); font-size: 11px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.sim-tracking-detail { display: block; margin-top: 1px; color: var(--muted); font-size: 11px; }
+
+.sim-tracking-checkpoints {
+  position: relative;
+  display: grid;
+  gap: 6px;
+  margin-top: 7px;
+  padding-left: 13px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.sim-tracking-checkpoints::before {
+  position: absolute;
+  top: 7px;
+  bottom: 7px;
+  left: 2px;
+  width: 1px;
+  background: var(--line);
+  content: '';
+}
+
+.sim-tracking-checkpoints > li {
+  position: relative;
+}
+
+.sim-tracking-checkpoints > li > div { min-width: 0; overflow-wrap: anywhere; }
+
+.sim-tracking-checkpoints > li::before {
+  position: absolute;
+  top: 5px;
+  left: -13px;
+  width: 5px;
+  height: 5px;
+  border: 1px solid var(--paper);
+  border-radius: 50%;
+  background: #969696;
+  box-sizing: content-box;
+  content: '';
+}
+
+.sim-tracking-checkpoints > li[data-state="completed"]::before,
+.sim-tracking-checkpoints > li[data-state="in_progress"]::before { background: var(--red); }
+.sim-tracking-checkpoints > li[data-state="in_progress"] { color: var(--tracking-accent-text); }
+.sim-tracking-checkpoints strong { display: block; color: var(--ink); font-weight: 600; }
+
+.sim-track-dispatch {
+  margin: 0 12px 12px;
+  padding: 0 3px 6px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--paper);
+}
+
+.sim-track-dispatch > summary { padding: 9px 11px 3px; color: var(--link); font-size: 12px; cursor: pointer; }
+.sim-track-dispatch > .sim-legend { padding: 5px 15px 0; }
+.sim-dispatch-party { padding: 7px 0 3px; border-top: 1px solid var(--line); }
+.sim-dispatch-party h3, .sim-dispatch-party > .sim-operation-details { padding: 0 17px; }
+.sim-dispatch-party h3 { font-size: 13px; }
+
+/* Выбранная партия раскрывается отдельно от списка. */
+.sim-party-workbench .sim-tracking-card { border-radius: 6px; padding: 14px 16px; }
+.sim-party-workbench .sim-tracking-party h3 { font-size: 16px; }
+.sim-party-workbench .sim-tracking-service { border: 0; padding: 2px 0; border-radius: 0; color: var(--muted); }
+.sim-party-workbench .sim-tracking-step { grid-template-columns: 12px minmax(0, 1fr); gap: 10px; min-height: 36px; }
+.sim-party-workbench .sim-tracking-marker { width: 8px; height: 8px; margin-top: 8px; border-width: 1px; }
+.sim-party-workbench .sim-tracking-marker svg { display: none; }
+.sim-party-workbench .sim-tracking-step:not(:last-child)::after { left: 3px; top: 16px; width: 1px; }
+.sim-party-workbench .sim-tracking-step[data-state="current"] .sim-tracking-marker {
+  border-color: var(--red); box-shadow: 0 0 0 3px #fbe2e3;
+}
+.sim-party-workbench .sim-tracking-checkpoints { gap: 4px; }
+.sim-party-workbench .sim-tracking-milestone { padding-bottom: 8px; }
+
+@container (max-width: 635px) {
+  .sim-tracking-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 420px) {
+  .sim-tracking-grid { padding-inline: 8px; }
+  .sim-tracking .sim-tracking-card { padding-inline: 12px; }
+  .sim-track-dispatch { margin-inline: 8px; }
+}

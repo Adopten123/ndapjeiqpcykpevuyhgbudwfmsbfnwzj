@@ -1,0 +1,329 @@
+{
+  "fixture_notice": "Учебный пример контракта. HTTP/решатель не запускались; значения статусов гипотетические, техническое время не измерено.",
+  "execution": "not_executed",
+  "payload_schema": "urn:proarctic:replan:v1:response",
+  "payload": {
+    "contract_version": "planning-replan.v1",
+    "data_mode": "demo",
+    "calculation_id": "DEMO-CALC-S1",
+    "attempt_id": "DEMO-ATTEMPT-1",
+    "snapshot_id": "DEMO-D1",
+    "policy_id": "recovery-lex.v1",
+    "baseline_plan_id": "DEMO-v0",
+    "outcome": "with_candidate",
+    "candidate_stage": 1,
+    "solver_status": "FEASIBLE",
+    "candidate": {
+      "party_plans": [
+        {
+          "party_id": "P1",
+          "route_id": "P1-main",
+          "service_id": "A",
+          "port_receipt_tick": 19,
+          "recipient_receipt_tick": 21
+        },
+        {
+          "party_id": "P2",
+          "route_id": "P2-main",
+          "service_id": "A",
+          "port_receipt_tick": 19,
+          "recipient_receipt_tick": 21
+        },
+        {
+          "party_id": "P3",
+          "route_id": "P3-main",
+          "service_id": "B",
+          "port_receipt_tick": 23,
+          "recipient_receipt_tick": 25
+        },
+        {
+          "party_id": "P4",
+          "route_id": "P4-main",
+          "service_id": "B",
+          "port_receipt_tick": 23,
+          "recipient_receipt_tick": 25
+        }
+      ],
+      "scheduled_operations": [
+        {
+          "operation_id": "P1-WAIT-M",
+          "start_tick": 0,
+          "end_tick": 8
+        },
+        {
+          "operation_id": "P1-LOAD",
+          "start_tick": 8,
+          "end_tick": 9
+        },
+        {
+          "operation_id": "P1-WAIT-SHIP",
+          "start_tick": 9,
+          "end_tick": 10
+        },
+        {
+          "operation_id": "P1-MU",
+          "start_tick": 10,
+          "end_tick": 13
+        },
+        {
+          "operation_id": "P1-UV",
+          "start_tick": 13,
+          "end_tick": 14
+        },
+        {
+          "operation_id": "P1-VD",
+          "start_tick": 14,
+          "end_tick": 18
+        },
+        {
+          "operation_id": "P1-UNLOAD",
+          "start_tick": 18,
+          "end_tick": 19
+        },
+        {
+          "operation_id": "P1-DR",
+          "start_tick": 19,
+          "end_tick": 21
+        },
+        {
+          "operation_id": "P2-BM",
+          "start_tick": 0,
+          "end_tick": 2
+        },
+        {
+          "operation_id": "P2-WAIT-M",
+          "start_tick": 2,
+          "end_tick": 9
+        },
+        {
+          "operation_id": "P2-LOAD",
+          "start_tick": 9,
+          "end_tick": 10
+        },
+        {
+          "operation_id": "P2-WAIT-SHIP",
+          "start_tick": 10,
+          "end_tick": 10
+        },
+        {
+          "operation_id": "P2-MU",
+          "start_tick": 10,
+          "end_tick": 13
+        },
+        {
+          "operation_id": "P2-UV",
+          "start_tick": 13,
+          "end_tick": 14
+        },
+        {
+          "operation_id": "P2-VD",
+          "start_tick": 14,
+          "end_tick": 18
+        },
+        {
+          "operation_id": "P2-UNLOAD",
+          "start_tick": 18,
+          "end_tick": 19
+        },
+        {
+          "operation_id": "P2-DR",
+          "start_tick": 19,
+          "end_tick": 21
+        },
+        {
+          "operation_id": "P3-SO",
+          "start_tick": 2,
+          "end_tick": 3
+        },
+        {
+          "operation_id": "P3-WAIT-O",
+          "start_tick": 3,
+          "end_tick": 6
+        },
+        {
+          "operation_id": "P3-OB",
+          "start_tick": 6,
+          "end_tick": 8
+        },
+        {
+          "operation_id": "P3-BM",
+          "start_tick": 8,
+          "end_tick": 10
+        },
+        {
+          "operation_id": "P3-WAIT-M",
+          "start_tick": 10,
+          "end_tick": 12
+        },
+        {
+          "operation_id": "P3-LOAD",
+          "start_tick": 12,
+          "end_tick": 13
+        },
+        {
+          "operation_id": "P3-WAIT-SHIP",
+          "start_tick": 13,
+          "end_tick": 14
+        },
+        {
+          "operation_id": "P3-MU",
+          "start_tick": 14,
+          "end_tick": 17
+        },
+        {
+          "operation_id": "P3-UV",
+          "start_tick": 17,
+          "end_tick": 18
+        },
+        {
+          "operation_id": "P3-VD",
+          "start_tick": 18,
+          "end_tick": 22
+        },
+        {
+          "operation_id": "P3-UNLOAD",
+          "start_tick": 22,
+          "end_tick": 23
+        },
+        {
+          "operation_id": "P3-DR",
+          "start_tick": 23,
+          "end_tick": 25
+        },
+        {
+          "operation_id": "P4-SO",
+          "start_tick": 3,
+          "end_tick": 4
+        },
+        {
+          "operation_id": "P4-WAIT-O",
+          "start_tick": 4,
+          "end_tick": 7
+        },
+        {
+          "operation_id": "P4-OB",
+          "start_tick": 7,
+          "end_tick": 9
+        },
+        {
+          "operation_id": "P4-BM",
+          "start_tick": 9,
+          "end_tick": 11
+        },
+        {
+          "operation_id": "P4-WAIT-M",
+          "start_tick": 11,
+          "end_tick": 13
+        },
+        {
+          "operation_id": "P4-LOAD",
+          "start_tick": 13,
+          "end_tick": 14
+        },
+        {
+          "operation_id": "P4-WAIT-SHIP",
+          "start_tick": 14,
+          "end_tick": 14
+        },
+        {
+          "operation_id": "P4-MU",
+          "start_tick": 14,
+          "end_tick": 17
+        },
+        {
+          "operation_id": "P4-UV",
+          "start_tick": 17,
+          "end_tick": 18
+        },
+        {
+          "operation_id": "P4-VD",
+          "start_tick": 18,
+          "end_tick": 22
+        },
+        {
+          "operation_id": "P4-UNLOAD",
+          "start_tick": 22,
+          "end_tick": 23
+        },
+        {
+          "operation_id": "P4-DR",
+          "start_tick": 23,
+          "end_tick": 25
+        }
+      ],
+      "fixed_fact_ids": [
+        "F-P1-M",
+        "F-P2-OB",
+        "F-P2-BM"
+      ]
+    },
+    "party_metrics": [
+      {
+        "party_id": "P1",
+        "baseline_receipt_tick": 17,
+        "candidate_receipt_tick": 21,
+        "due_tick": 22,
+        "positive_shift_tick": 4
+      },
+      {
+        "party_id": "P2",
+        "baseline_receipt_tick": 17,
+        "candidate_receipt_tick": 21,
+        "due_tick": 22,
+        "positive_shift_tick": 4
+      },
+      {
+        "party_id": "P3",
+        "baseline_receipt_tick": 25,
+        "candidate_receipt_tick": 25,
+        "due_tick": 26,
+        "positive_shift_tick": 0
+      },
+      {
+        "party_id": "P4",
+        "baseline_receipt_tick": 25,
+        "candidate_receipt_tick": 25,
+        "due_tick": 26,
+        "positive_shift_tick": 0
+      }
+    ],
+    "objective": {
+      "sum_positive_shift": 8,
+      "max_positive_shift": 4,
+      "changed_groups": 2
+    },
+    "changed_group_ids": [
+      "RAIL-P3",
+      "RAIL-P4"
+    ],
+    "optimization_stages": [
+      {
+        "tier": 1,
+        "status": "FEASIBLE",
+        "objective_value": 8,
+        "best_bound": null,
+        "elapsed_ms": null
+      }
+    ],
+    "proven_prefix": 0,
+    "validation": {
+      "status": "candidate_requires_go_check",
+      "notes": [
+        "Пример формата: решатель не запускался. Значение FEASIBLE иллюстрирует ветку протокола."
+      ]
+    },
+    "warnings": [
+      "ILLUSTRATIVE_FIXTURE_NOT_EXECUTED"
+    ],
+    "assumptions": [
+      "Совместимость, документы и остаточные ресурсы заданы как учебные предусловия; размеры/массы не подтверждены. Временная метка создания иллюстративная."
+    ],
+    "algorithm": {
+      "name": "cp-sat-recovery",
+      "version": "example-not-selected"
+    },
+    "timing": {
+      "elapsed_ms": null
+    }
+  }
+}

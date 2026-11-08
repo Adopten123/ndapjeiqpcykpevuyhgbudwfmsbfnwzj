@@ -1,0 +1,50 @@
+{
+  "fixture_notice": "Учебный пример контракта. HTTP/решатель не запускались; значения статусов гипотетические, техническое время не измерено.",
+  "execution": "not_executed",
+  "payload_schema": "urn:proarctic:replan:v1:response",
+  "payload": {
+    "contract_version": "planning-replan.v1",
+    "data_mode": "demo",
+    "calculation_id": "DEMO-CALC-S1",
+    "attempt_id": "DEMO-ATTEMPT-1",
+    "snapshot_id": "DEMO-D1",
+    "policy_id": "recovery-lex.v1",
+    "baseline_plan_id": "DEMO-v0",
+    "outcome": "no_candidate",
+    "candidate_stage": null,
+    "solver_status": "UNKNOWN",
+    "candidate": null,
+    "party_metrics": [],
+    "objective": null,
+    "changed_group_ids": [],
+    "optimization_stages": [
+      {
+        "tier": 1,
+        "status": "UNKNOWN",
+        "objective_value": null,
+        "best_bound": null,
+        "elapsed_ms": null
+      }
+    ],
+    "proven_prefix": 0,
+    "validation": {
+      "status": "no_candidate",
+      "notes": [
+        "Гипотетическая ветка остановки без найденного кандидата; не результат запуска."
+      ]
+    },
+    "warnings": [
+      "ILLUSTRATIVE_FIXTURE_NOT_EXECUTED"
+    ],
+    "assumptions": [
+      "Совместимость, документы и остаточные ресурсы заданы как учебные предусловия; размеры/массы не подтверждены. Временная метка создания иллюстративная."
+    ],
+    "algorithm": {
+      "name": "cp-sat-recovery",
+      "version": "example-not-selected"
+    },
+    "timing": {
+      "elapsed_ms": null
+    }
+  }
+}

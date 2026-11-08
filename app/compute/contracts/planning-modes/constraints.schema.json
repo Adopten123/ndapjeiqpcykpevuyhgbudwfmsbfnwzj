@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:proarctic:planning:constraints:v1",
+  "title": "Общие окна приёма и будущие обязательства, рабочая детализация",
+  "$defs": {
+    "receipt_constraint": {
+      "type": "object",
+      "properties": {
+        "party_id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "event": {
+          "const": "recipient_acceptance"
+        },
+        "windows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+              },
+              "start_tick": {
+                "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+              },
+              "end_tick": {
+                "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+              },
+              "evidence_ids": {
+                "$ref": "urn:proarctic:replan:v1:common#/$defs/ids",
+                "minItems": 1
+              },
+              "status": {
+                "enum": [
+                  "demo_precondition",
+                  "confirmed"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "start_tick",
+              "end_tick",
+              "evidence_ids",
+              "status"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "party_id",
+        "event",
+        "windows"
+      ],
+      "additionalProperties": false
+    },
+    "commitment": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+            },
+            "kind": {
+              "const": "service_conditions"
+            },
+            "validity": {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/interval"
+            },
+            "evidence_ids": {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/ids",
+              "minItems": 1
+            },
+            "status": {
+              "enum": [
+                "demo_precondition",
+                "confirmed"
+              ]
+            },
+            "service_id": {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+            },
+            "departure_tick": {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+            },
+            "load_window": {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/interval"
+            }
+          },
+          "required": [
+            "id",
+            "kind",
+            "validity",
+            "evidence_ids",
+            "status",
+            "service_id",
+            "departure_tick",
+            "load_window"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+            },
+            "kind": {
+              "const": "operation_start_window"
+            },
+            "validity": {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/interval"
+            },
+            "evidence_ids": {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/ids",
+              "minItems": 1
+            },
+            "status": {
+              "enum": [
+                "demo_precondition",
+                "confirmed"
+              ]
+            },
+            "operation_id": {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+            },
+            "window": {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/interval"
+            }
+          },
+          "required": [
+            "id",
+            "kind",
+            "validity",
+            "evidence_ids",
+            "status",
+            "operation_id",
+            "window"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    }
+  }
+}

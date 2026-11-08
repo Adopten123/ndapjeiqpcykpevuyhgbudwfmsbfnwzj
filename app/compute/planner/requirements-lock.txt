@@ -1,0 +1,15 @@
+# Versions installed for this research run, Python 3.12 / Windows; not tested on other platforms.
+absl-py==2.5.1
+attrs==26.1.0
+immutabledict==4.3.1
+jsonschema==4.26.0
+jsonschema-specifications==2025.9.1
+numpy==2.5.4
+ortools==9.15.6755
+pandas==3.1.0
+protobuf==6.33.6
+python-dateutil==4.0.0
+referencing==0.37.0
+rpds-py==2026.9.1
+typing_extensions==4.16.0
+tzdata==2026.6

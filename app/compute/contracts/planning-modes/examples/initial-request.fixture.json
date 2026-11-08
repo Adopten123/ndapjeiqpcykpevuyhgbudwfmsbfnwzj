@@ -1,0 +1,2789 @@
+{
+  "fixture_notice": "Учебный пример. Статусы гипотетические; HTTP и решатель не запускались, время не измерено.",
+  "execution": "not_executed",
+  "payload_schema": "urn:proarctic:planning:initial:v1:request",
+  "payload": {
+    "contract_version": "planning-initial.v1",
+    "mode": "initial",
+    "data_mode": "demo",
+    "calculation_id": "DEMO-INITIAL-S0",
+    "attempt_id": "DEMO-ATTEMPT-1",
+    "snapshot_id": "DEMO-S0-INPUT",
+    "created_at": "2026-11-01T00:00:00Z",
+    "time_basis": {
+      "kind": "scenario_steps",
+      "origin_label": "S1:t0",
+      "now_tick": 0,
+      "horizon_end_tick": 30
+    },
+    "policy": {
+      "id": "initial-lex.v1",
+      "target_event": "recipient_acceptance",
+      "objective_order": [
+        "sum_remaining_tick",
+        "last_remaining_tick"
+      ]
+    },
+    "parties": [
+      {
+        "id": "P1",
+        "ready_tick": 0,
+        "due_tick": 22,
+        "min_preload_preparation_tick": 1,
+        "current": {
+          "kind": "at_location",
+          "location_id": "M"
+        },
+        "container_ids": [
+          "DEMO-C1"
+        ],
+        "transport_group_ids": [],
+        "allowed_service_ids": [
+          "A"
+        ],
+        "port_receipt_operation_id": "P1-UNLOAD",
+        "recipient_receipt_operation_id": "P1-DR",
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P2",
+        "ready_tick": 0,
+        "due_tick": 22,
+        "min_preload_preparation_tick": 1,
+        "current": {
+          "kind": "on_edge",
+          "edge_id": "BM",
+          "started_tick": 0,
+          "operation_id": "P2-BM"
+        },
+        "container_ids": [
+          "DEMO-C2"
+        ],
+        "transport_group_ids": [],
+        "allowed_service_ids": [
+          "A"
+        ],
+        "port_receipt_operation_id": "P2-UNLOAD",
+        "recipient_receipt_operation_id": "P2-DR",
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P3",
+        "ready_tick": 2,
+        "due_tick": 26,
+        "min_preload_preparation_tick": 1,
+        "current": {
+          "kind": "at_location",
+          "location_id": "S"
+        },
+        "container_ids": [
+          "DEMO-C3"
+        ],
+        "transport_group_ids": [
+          "RAIL-P3"
+        ],
+        "allowed_service_ids": [
+          "B"
+        ],
+        "port_receipt_operation_id": "P3-UNLOAD",
+        "recipient_receipt_operation_id": "P3-DR",
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P4",
+        "ready_tick": 3,
+        "due_tick": 26,
+        "min_preload_preparation_tick": 1,
+        "current": {
+          "kind": "at_location",
+          "location_id": "S"
+        },
+        "container_ids": [
+          "DEMO-C4"
+        ],
+        "transport_group_ids": [
+          "RAIL-P4"
+        ],
+        "allowed_service_ids": [
+          "B"
+        ],
+        "port_receipt_operation_id": "P4-UNLOAD",
+        "recipient_receipt_operation_id": "P4-DR",
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      }
+    ],
+    "containers": [
+      {
+        "id": "DEMO-C1",
+        "party_id": "P1",
+        "profile": "dry_nonhazardous_packed",
+        "size_type": null,
+        "gross_mass_kg": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "DEMO-C2",
+        "party_id": "P2",
+        "profile": "dry_nonhazardous_packed",
+        "size_type": null,
+        "gross_mass_kg": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "DEMO-C3",
+        "party_id": "P3",
+        "profile": "dry_nonhazardous_packed",
+        "size_type": null,
+        "gross_mass_kg": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "DEMO-C4",
+        "party_id": "P4",
+        "profile": "dry_nonhazardous_packed",
+        "size_type": null,
+        "gross_mass_kg": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      }
+    ],
+    "transport_groups": [
+      {
+        "id": "RAIL-P3",
+        "party_ids": [
+          "P3"
+        ],
+        "indivisible": true,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "RAIL-P4",
+        "party_ids": [
+          "P4"
+        ],
+        "indivisible": true,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      }
+    ],
+    "locations": [
+      {
+        "id": "S",
+        "kind": "sender",
+        "label": "Учебный узел S",
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "O",
+        "kind": "station",
+        "label": "Ховрино: учебная зона ожидания, реальный ресурс не подтверждён",
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "B",
+        "kind": "route_node",
+        "label": "Учебный узел B",
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "C",
+        "kind": "route_node",
+        "label": "Учебный узел C",
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "M",
+        "kind": "terminal",
+        "label": "Учебный узел M",
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "U",
+        "kind": "route_node",
+        "label": "Учебный узел U",
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "V",
+        "kind": "route_node",
+        "label": "Учебный узел V",
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "D",
+        "kind": "terminal",
+        "label": "Учебный узел D",
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "R",
+        "kind": "recipient",
+        "label": "Учебный узел R",
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "id": "SO",
+        "from_location_id": "S",
+        "to_location_id": "O",
+        "mode": "initial_transfer",
+        "estimate_id": "E1",
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "OB",
+        "from_location_id": "O",
+        "to_location_id": "B",
+        "mode": "rail",
+        "estimate_id": "E2",
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "BM",
+        "from_location_id": "B",
+        "to_location_id": "M",
+        "mode": "rail",
+        "estimate_id": "E2",
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "OC",
+        "from_location_id": "O",
+        "to_location_id": "C",
+        "mode": "rail",
+        "estimate_id": "E3",
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "CM",
+        "from_location_id": "C",
+        "to_location_id": "M",
+        "mode": "rail",
+        "estimate_id": "E3",
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "MU",
+        "from_location_id": "M",
+        "to_location_id": "U",
+        "mode": "sea",
+        "estimate_id": "E3",
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "UV",
+        "from_location_id": "U",
+        "to_location_id": "V",
+        "mode": "sea",
+        "estimate_id": "E1",
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "VD",
+        "from_location_id": "V",
+        "to_location_id": "D",
+        "mode": "sea",
+        "estimate_id": "E4",
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "DR",
+        "from_location_id": "D",
+        "to_location_id": "R",
+        "mode": "last_mile",
+        "estimate_id": "E2",
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      }
+    ],
+    "route_candidates": [
+      {
+        "id": "P1-main",
+        "party_id": "P1",
+        "edge_ids": [
+          "MU",
+          "UV",
+          "VD",
+          "DR"
+        ],
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P2-main",
+        "party_id": "P2",
+        "edge_ids": [
+          "BM",
+          "MU",
+          "UV",
+          "VD",
+          "DR"
+        ],
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P3-main",
+        "party_id": "P3",
+        "edge_ids": [
+          "SO",
+          "OB",
+          "BM",
+          "MU",
+          "UV",
+          "VD",
+          "DR"
+        ],
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P3-alt",
+        "party_id": "P3",
+        "edge_ids": [
+          "SO",
+          "OC",
+          "CM",
+          "MU",
+          "UV",
+          "VD",
+          "DR"
+        ],
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P4-main",
+        "party_id": "P4",
+        "edge_ids": [
+          "SO",
+          "OB",
+          "BM",
+          "MU",
+          "UV",
+          "VD",
+          "DR"
+        ],
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P4-alt",
+        "party_id": "P4",
+        "edge_ids": [
+          "SO",
+          "OC",
+          "CM",
+          "MU",
+          "UV",
+          "VD",
+          "DR"
+        ],
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      }
+    ],
+    "operations": [
+      {
+        "id": "P1-WAIT-M",
+        "party_id": "P1",
+        "kind": "wait",
+        "from_location_id": "M",
+        "to_location_id": "M",
+        "edge_id": null,
+        "route_candidate_ids": [
+          "P1-main"
+        ],
+        "service_id": null,
+        "transport_group_id": null,
+        "duration": {
+          "kind": "decision",
+          "min_tick": 0,
+          "max_tick": 30
+        },
+        "predecessor_ids": [],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P1-LOAD",
+        "party_id": "P1",
+        "kind": "load",
+        "from_location_id": "M",
+        "to_location_id": "M",
+        "edge_id": null,
+        "route_candidate_ids": [
+          "P1-main"
+        ],
+        "service_id": "A",
+        "transport_group_id": null,
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E1"
+        },
+        "predecessor_ids": [
+          "P1-WAIT-M"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P1-WAIT-SHIP",
+        "party_id": "P1",
+        "kind": "wait",
+        "from_location_id": "M",
+        "to_location_id": "M",
+        "edge_id": null,
+        "route_candidate_ids": [
+          "P1-main"
+        ],
+        "service_id": "A",
+        "transport_group_id": null,
+        "duration": {
+          "kind": "decision",
+          "min_tick": 0,
+          "max_tick": 30
+        },
+        "predecessor_ids": [
+          "P1-LOAD"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P1-MU",
+        "party_id": "P1",
+        "kind": "move",
+        "from_location_id": "M",
+        "to_location_id": "U",
+        "edge_id": "MU",
+        "route_candidate_ids": [
+          "P1-main"
+        ],
+        "service_id": "A",
+        "transport_group_id": null,
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E3"
+        },
+        "predecessor_ids": [
+          "P1-WAIT-SHIP"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P1-UV",
+        "party_id": "P1",
+        "kind": "move",
+        "from_location_id": "U",
+        "to_location_id": "V",
+        "edge_id": "UV",
+        "route_candidate_ids": [
+          "P1-main"
+        ],
+        "service_id": "A",
+        "transport_group_id": null,
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E1"
+        },
+        "predecessor_ids": [
+          "P1-MU"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P1-VD",
+        "party_id": "P1",
+        "kind": "move",
+        "from_location_id": "V",
+        "to_location_id": "D",
+        "edge_id": "VD",
+        "route_candidate_ids": [
+          "P1-main"
+        ],
+        "service_id": "A",
+        "transport_group_id": null,
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E4"
+        },
+        "predecessor_ids": [
+          "P1-UV"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P1-UNLOAD",
+        "party_id": "P1",
+        "kind": "unload",
+        "from_location_id": "D",
+        "to_location_id": "D",
+        "edge_id": null,
+        "route_candidate_ids": [
+          "P1-main"
+        ],
+        "service_id": "A",
+        "transport_group_id": null,
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E1"
+        },
+        "predecessor_ids": [
+          "P1-VD"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P1-DR",
+        "party_id": "P1",
+        "kind": "move",
+        "from_location_id": "D",
+        "to_location_id": "R",
+        "edge_id": "DR",
+        "route_candidate_ids": [
+          "P1-main"
+        ],
+        "service_id": null,
+        "transport_group_id": null,
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E2"
+        },
+        "predecessor_ids": [
+          "P1-UNLOAD"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P2-OB-PAST",
+        "party_id": "P2",
+        "kind": "move",
+        "from_location_id": "O",
+        "to_location_id": "B",
+        "edge_id": "OB",
+        "route_candidate_ids": [
+          "P2-main"
+        ],
+        "service_id": null,
+        "transport_group_id": null,
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E2"
+        },
+        "predecessor_ids": [],
+        "min_predecessor_lag_tick": 0,
+        "state": "completed",
+        "fixed_start_tick": -2,
+        "fixed_end_tick": 0,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P2-BM",
+        "party_id": "P2",
+        "kind": "move",
+        "from_location_id": "B",
+        "to_location_id": "M",
+        "edge_id": "BM",
+        "route_candidate_ids": [
+          "P2-main"
+        ],
+        "service_id": null,
+        "transport_group_id": null,
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E2"
+        },
+        "predecessor_ids": [],
+        "min_predecessor_lag_tick": 0,
+        "state": "in_progress",
+        "fixed_start_tick": 0,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P2-WAIT-M",
+        "party_id": "P2",
+        "kind": "wait",
+        "from_location_id": "M",
+        "to_location_id": "M",
+        "edge_id": null,
+        "route_candidate_ids": [
+          "P2-main"
+        ],
+        "service_id": null,
+        "transport_group_id": null,
+        "duration": {
+          "kind": "decision",
+          "min_tick": 0,
+          "max_tick": 30
+        },
+        "predecessor_ids": [
+          "P2-BM"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P2-LOAD",
+        "party_id": "P2",
+        "kind": "load",
+        "from_location_id": "M",
+        "to_location_id": "M",
+        "edge_id": null,
+        "route_candidate_ids": [
+          "P2-main"
+        ],
+        "service_id": "A",
+        "transport_group_id": null,
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E1"
+        },
+        "predecessor_ids": [
+          "P2-WAIT-M"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P2-WAIT-SHIP",
+        "party_id": "P2",
+        "kind": "wait",
+        "from_location_id": "M",
+        "to_location_id": "M",
+        "edge_id": null,
+        "route_candidate_ids": [
+          "P2-main"
+        ],
+        "service_id": "A",
+        "transport_group_id": null,
+        "duration": {
+          "kind": "decision",
+          "min_tick": 0,
+          "max_tick": 30
+        },
+        "predecessor_ids": [
+          "P2-LOAD"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P2-MU",
+        "party_id": "P2",
+        "kind": "move",
+        "from_location_id": "M",
+        "to_location_id": "U",
+        "edge_id": "MU",
+        "route_candidate_ids": [
+          "P2-main"
+        ],
+        "service_id": "A",
+        "transport_group_id": null,
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E3"
+        },
+        "predecessor_ids": [
+          "P2-WAIT-SHIP"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P2-UV",
+        "party_id": "P2",
+        "kind": "move",
+        "from_location_id": "U",
+        "to_location_id": "V",
+        "edge_id": "UV",
+        "route_candidate_ids": [
+          "P2-main"
+        ],
+        "service_id": "A",
+        "transport_group_id": null,
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E1"
+        },
+        "predecessor_ids": [
+          "P2-MU"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P2-VD",
+        "party_id": "P2",
+        "kind": "move",
+        "from_location_id": "V",
+        "to_location_id": "D",
+        "edge_id": "VD",
+        "route_candidate_ids": [
+          "P2-main"
+        ],
+        "service_id": "A",
+        "transport_group_id": null,
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E4"
+        },
+        "predecessor_ids": [
+          "P2-UV"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P2-UNLOAD",
+        "party_id": "P2",
+        "kind": "unload",
+        "from_location_id": "D",
+        "to_location_id": "D",
+        "edge_id": null,
+        "route_candidate_ids": [
+          "P2-main"
+        ],
+        "service_id": "A",
+        "transport_group_id": null,
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E1"
+        },
+        "predecessor_ids": [
+          "P2-VD"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P2-DR",
+        "party_id": "P2",
+        "kind": "move",
+        "from_location_id": "D",
+        "to_location_id": "R",
+        "edge_id": "DR",
+        "route_candidate_ids": [
+          "P2-main"
+        ],
+        "service_id": null,
+        "transport_group_id": null,
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E2"
+        },
+        "predecessor_ids": [
+          "P2-UNLOAD"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P3-SO",
+        "party_id": "P3",
+        "kind": "move",
+        "from_location_id": "S",
+        "to_location_id": "O",
+        "edge_id": "SO",
+        "route_candidate_ids": [
+          "P3-main",
+          "P3-alt"
+        ],
+        "service_id": null,
+        "transport_group_id": null,
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E1"
+        },
+        "predecessor_ids": [],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P3-WAIT-O",
+        "party_id": "P3",
+        "kind": "wait",
+        "from_location_id": "O",
+        "to_location_id": "O",
+        "edge_id": null,
+        "route_candidate_ids": [
+          "P3-main"
+        ],
+        "service_id": null,
+        "transport_group_id": null,
+        "duration": {
+          "kind": "decision",
+          "min_tick": 0,
+          "max_tick": 30
+        },
+        "predecessor_ids": [
+          "P3-SO"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P3-OB",
+        "party_id": "P3",
+        "kind": "move",
+        "from_location_id": "O",
+        "to_location_id": "B",
+        "edge_id": "OB",
+        "route_candidate_ids": [
+          "P3-main"
+        ],
+        "service_id": null,
+        "transport_group_id": "RAIL-P3",
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E2"
+        },
+        "predecessor_ids": [
+          "P3-WAIT-O"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P3-BM",
+        "party_id": "P3",
+        "kind": "move",
+        "from_location_id": "B",
+        "to_location_id": "M",
+        "edge_id": "BM",
+        "route_candidate_ids": [
+          "P3-main"
+        ],
+        "service_id": null,
+        "transport_group_id": "RAIL-P3",
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E2"
+        },
+        "predecessor_ids": [
+          "P3-OB"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P3-WAIT-O-ALT",
+        "party_id": "P3",
+        "kind": "wait",
+        "from_location_id": "O",
+        "to_location_id": "O",
+        "edge_id": null,
+        "route_candidate_ids": [
+          "P3-alt"
+        ],
+        "service_id": null,
+        "transport_group_id": null,
+        "duration": {
+          "kind": "decision",
+          "min_tick": 0,
+          "max_tick": 30
+        },
+        "predecessor_ids": [
+          "P3-SO"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P3-OC",
+        "party_id": "P3",
+        "kind": "move",
+        "from_location_id": "O",
+        "to_location_id": "C",
+        "edge_id": "OC",
+        "route_candidate_ids": [
+          "P3-alt"
+        ],
+        "service_id": null,
+        "transport_group_id": "RAIL-P3",
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E3"
+        },
+        "predecessor_ids": [
+          "P3-WAIT-O-ALT"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P3-CM",
+        "party_id": "P3",
+        "kind": "move",
+        "from_location_id": "C",
+        "to_location_id": "M",
+        "edge_id": "CM",
+        "route_candidate_ids": [
+          "P3-alt"
+        ],
+        "service_id": null,
+        "transport_group_id": "RAIL-P3",
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E3"
+        },
+        "predecessor_ids": [
+          "P3-OC"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P3-WAIT-M",
+        "party_id": "P3",
+        "kind": "wait",
+        "from_location_id": "M",
+        "to_location_id": "M",
+        "edge_id": null,
+        "route_candidate_ids": [
+          "P3-main",
+          "P3-alt"
+        ],
+        "service_id": null,
+        "transport_group_id": null,
+        "duration": {
+          "kind": "decision",
+          "min_tick": 0,
+          "max_tick": 30
+        },
+        "predecessor_ids": [
+          "P3-BM",
+          "P3-CM"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P3-LOAD",
+        "party_id": "P3",
+        "kind": "load",
+        "from_location_id": "M",
+        "to_location_id": "M",
+        "edge_id": null,
+        "route_candidate_ids": [
+          "P3-main",
+          "P3-alt"
+        ],
+        "service_id": "B",
+        "transport_group_id": null,
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E1"
+        },
+        "predecessor_ids": [
+          "P3-WAIT-M"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P3-WAIT-SHIP",
+        "party_id": "P3",
+        "kind": "wait",
+        "from_location_id": "M",
+        "to_location_id": "M",
+        "edge_id": null,
+        "route_candidate_ids": [
+          "P3-main",
+          "P3-alt"
+        ],
+        "service_id": "B",
+        "transport_group_id": null,
+        "duration": {
+          "kind": "decision",
+          "min_tick": 0,
+          "max_tick": 30
+        },
+        "predecessor_ids": [
+          "P3-LOAD"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P3-MU",
+        "party_id": "P3",
+        "kind": "move",
+        "from_location_id": "M",
+        "to_location_id": "U",
+        "edge_id": "MU",
+        "route_candidate_ids": [
+          "P3-main",
+          "P3-alt"
+        ],
+        "service_id": "B",
+        "transport_group_id": null,
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E3"
+        },
+        "predecessor_ids": [
+          "P3-WAIT-SHIP"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P3-UV",
+        "party_id": "P3",
+        "kind": "move",
+        "from_location_id": "U",
+        "to_location_id": "V",
+        "edge_id": "UV",
+        "route_candidate_ids": [
+          "P3-main",
+          "P3-alt"
+        ],
+        "service_id": "B",
+        "transport_group_id": null,
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E1"
+        },
+        "predecessor_ids": [
+          "P3-MU"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P3-VD",
+        "party_id": "P3",
+        "kind": "move",
+        "from_location_id": "V",
+        "to_location_id": "D",
+        "edge_id": "VD",
+        "route_candidate_ids": [
+          "P3-main",
+          "P3-alt"
+        ],
+        "service_id": "B",
+        "transport_group_id": null,
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E4"
+        },
+        "predecessor_ids": [
+          "P3-UV"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P3-UNLOAD",
+        "party_id": "P3",
+        "kind": "unload",
+        "from_location_id": "D",
+        "to_location_id": "D",
+        "edge_id": null,
+        "route_candidate_ids": [
+          "P3-main",
+          "P3-alt"
+        ],
+        "service_id": "B",
+        "transport_group_id": null,
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E1"
+        },
+        "predecessor_ids": [
+          "P3-VD"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P3-DR",
+        "party_id": "P3",
+        "kind": "move",
+        "from_location_id": "D",
+        "to_location_id": "R",
+        "edge_id": "DR",
+        "route_candidate_ids": [
+          "P3-main",
+          "P3-alt"
+        ],
+        "service_id": null,
+        "transport_group_id": null,
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E2"
+        },
+        "predecessor_ids": [
+          "P3-UNLOAD"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P4-SO",
+        "party_id": "P4",
+        "kind": "move",
+        "from_location_id": "S",
+        "to_location_id": "O",
+        "edge_id": "SO",
+        "route_candidate_ids": [
+          "P4-main",
+          "P4-alt"
+        ],
+        "service_id": null,
+        "transport_group_id": null,
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E1"
+        },
+        "predecessor_ids": [],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P4-WAIT-O",
+        "party_id": "P4",
+        "kind": "wait",
+        "from_location_id": "O",
+        "to_location_id": "O",
+        "edge_id": null,
+        "route_candidate_ids": [
+          "P4-main"
+        ],
+        "service_id": null,
+        "transport_group_id": null,
+        "duration": {
+          "kind": "decision",
+          "min_tick": 0,
+          "max_tick": 30
+        },
+        "predecessor_ids": [
+          "P4-SO"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P4-OB",
+        "party_id": "P4",
+        "kind": "move",
+        "from_location_id": "O",
+        "to_location_id": "B",
+        "edge_id": "OB",
+        "route_candidate_ids": [
+          "P4-main"
+        ],
+        "service_id": null,
+        "transport_group_id": "RAIL-P4",
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E2"
+        },
+        "predecessor_ids": [
+          "P4-WAIT-O"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P4-BM",
+        "party_id": "P4",
+        "kind": "move",
+        "from_location_id": "B",
+        "to_location_id": "M",
+        "edge_id": "BM",
+        "route_candidate_ids": [
+          "P4-main"
+        ],
+        "service_id": null,
+        "transport_group_id": "RAIL-P4",
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E2"
+        },
+        "predecessor_ids": [
+          "P4-OB"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P4-WAIT-O-ALT",
+        "party_id": "P4",
+        "kind": "wait",
+        "from_location_id": "O",
+        "to_location_id": "O",
+        "edge_id": null,
+        "route_candidate_ids": [
+          "P4-alt"
+        ],
+        "service_id": null,
+        "transport_group_id": null,
+        "duration": {
+          "kind": "decision",
+          "min_tick": 0,
+          "max_tick": 30
+        },
+        "predecessor_ids": [
+          "P4-SO"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P4-OC",
+        "party_id": "P4",
+        "kind": "move",
+        "from_location_id": "O",
+        "to_location_id": "C",
+        "edge_id": "OC",
+        "route_candidate_ids": [
+          "P4-alt"
+        ],
+        "service_id": null,
+        "transport_group_id": "RAIL-P4",
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E3"
+        },
+        "predecessor_ids": [
+          "P4-WAIT-O-ALT"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P4-CM",
+        "party_id": "P4",
+        "kind": "move",
+        "from_location_id": "C",
+        "to_location_id": "M",
+        "edge_id": "CM",
+        "route_candidate_ids": [
+          "P4-alt"
+        ],
+        "service_id": null,
+        "transport_group_id": "RAIL-P4",
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E3"
+        },
+        "predecessor_ids": [
+          "P4-OC"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P4-WAIT-M",
+        "party_id": "P4",
+        "kind": "wait",
+        "from_location_id": "M",
+        "to_location_id": "M",
+        "edge_id": null,
+        "route_candidate_ids": [
+          "P4-main",
+          "P4-alt"
+        ],
+        "service_id": null,
+        "transport_group_id": null,
+        "duration": {
+          "kind": "decision",
+          "min_tick": 0,
+          "max_tick": 30
+        },
+        "predecessor_ids": [
+          "P4-BM",
+          "P4-CM"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P4-LOAD",
+        "party_id": "P4",
+        "kind": "load",
+        "from_location_id": "M",
+        "to_location_id": "M",
+        "edge_id": null,
+        "route_candidate_ids": [
+          "P4-main",
+          "P4-alt"
+        ],
+        "service_id": "B",
+        "transport_group_id": null,
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E1"
+        },
+        "predecessor_ids": [
+          "P4-WAIT-M"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P4-WAIT-SHIP",
+        "party_id": "P4",
+        "kind": "wait",
+        "from_location_id": "M",
+        "to_location_id": "M",
+        "edge_id": null,
+        "route_candidate_ids": [
+          "P4-main",
+          "P4-alt"
+        ],
+        "service_id": "B",
+        "transport_group_id": null,
+        "duration": {
+          "kind": "decision",
+          "min_tick": 0,
+          "max_tick": 30
+        },
+        "predecessor_ids": [
+          "P4-LOAD"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P4-MU",
+        "party_id": "P4",
+        "kind": "move",
+        "from_location_id": "M",
+        "to_location_id": "U",
+        "edge_id": "MU",
+        "route_candidate_ids": [
+          "P4-main",
+          "P4-alt"
+        ],
+        "service_id": "B",
+        "transport_group_id": null,
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E3"
+        },
+        "predecessor_ids": [
+          "P4-WAIT-SHIP"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P4-UV",
+        "party_id": "P4",
+        "kind": "move",
+        "from_location_id": "U",
+        "to_location_id": "V",
+        "edge_id": "UV",
+        "route_candidate_ids": [
+          "P4-main",
+          "P4-alt"
+        ],
+        "service_id": "B",
+        "transport_group_id": null,
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E1"
+        },
+        "predecessor_ids": [
+          "P4-MU"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P4-VD",
+        "party_id": "P4",
+        "kind": "move",
+        "from_location_id": "V",
+        "to_location_id": "D",
+        "edge_id": "VD",
+        "route_candidate_ids": [
+          "P4-main",
+          "P4-alt"
+        ],
+        "service_id": "B",
+        "transport_group_id": null,
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E4"
+        },
+        "predecessor_ids": [
+          "P4-UV"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P4-UNLOAD",
+        "party_id": "P4",
+        "kind": "unload",
+        "from_location_id": "D",
+        "to_location_id": "D",
+        "edge_id": null,
+        "route_candidate_ids": [
+          "P4-main",
+          "P4-alt"
+        ],
+        "service_id": "B",
+        "transport_group_id": null,
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E1"
+        },
+        "predecessor_ids": [
+          "P4-VD"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "P4-DR",
+        "party_id": "P4",
+        "kind": "move",
+        "from_location_id": "D",
+        "to_location_id": "R",
+        "edge_id": "DR",
+        "route_candidate_ids": [
+          "P4-main",
+          "P4-alt"
+        ],
+        "service_id": null,
+        "transport_group_id": null,
+        "duration": {
+          "kind": "estimate",
+          "estimate_id": "E2"
+        },
+        "predecessor_ids": [
+          "P4-UNLOAD"
+        ],
+        "min_predecessor_lag_tick": 0,
+        "state": "planned",
+        "fixed_start_tick": null,
+        "fixed_end_tick": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      }
+    ],
+    "facts": [
+      {
+        "id": "F-P1-M",
+        "party_id": "P1",
+        "event_kind": "terminal_received",
+        "operation_id": null,
+        "location_id": "M",
+        "event_tick": 0,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "F-P2-OB",
+        "party_id": "P2",
+        "event_kind": "operation_completed",
+        "operation_id": "P2-OB-PAST",
+        "location_id": "B",
+        "event_tick": 0,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "F-P2-BM",
+        "party_id": "P2",
+        "event_kind": "operation_started",
+        "operation_id": "P2-BM",
+        "location_id": null,
+        "event_tick": 0,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      }
+    ],
+    "resources": [
+      {
+        "id": "ACCESS",
+        "unit": "demo_party_slot",
+        "capacity_basis": "residual",
+        "calendar": [
+          {
+            "start_tick": -2,
+            "end_tick": 30,
+            "capacity": 2
+          }
+        ],
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "RAIL-OB",
+        "unit": "demo_party_slot",
+        "capacity_basis": "residual",
+        "calendar": [
+          {
+            "start_tick": -2,
+            "end_tick": 30,
+            "capacity": 2
+          }
+        ],
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "RAIL-BM",
+        "unit": "demo_party_slot",
+        "capacity_basis": "residual",
+        "calendar": [
+          {
+            "start_tick": -2,
+            "end_tick": 30,
+            "capacity": 2
+          }
+        ],
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "RAIL-OC",
+        "unit": "demo_party_slot",
+        "capacity_basis": "residual",
+        "calendar": [
+          {
+            "start_tick": -2,
+            "end_tick": 30,
+            "capacity": 2
+          }
+        ],
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "RAIL-CM",
+        "unit": "demo_party_slot",
+        "capacity_basis": "residual",
+        "calendar": [
+          {
+            "start_tick": -2,
+            "end_tick": 30,
+            "capacity": 2
+          }
+        ],
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "O-WAIT",
+        "unit": "demo_party_slot",
+        "capacity_basis": "residual",
+        "calendar": [
+          {
+            "start_tick": -2,
+            "end_tick": 30,
+            "capacity": 2
+          }
+        ],
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "M-YARD",
+        "unit": "demo_party_slot",
+        "capacity_basis": "residual",
+        "calendar": [
+          {
+            "start_tick": -2,
+            "end_tick": 30,
+            "capacity": 2
+          }
+        ],
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "M-CRANE",
+        "unit": "demo_party_slot",
+        "capacity_basis": "residual",
+        "calendar": [
+          {
+            "start_tick": -2,
+            "end_tick": 30,
+            "capacity": 1
+          }
+        ],
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "D-UNLOAD",
+        "unit": "demo_party_slot",
+        "capacity_basis": "residual",
+        "calendar": [
+          {
+            "start_tick": -2,
+            "end_tick": 30,
+            "capacity": 2
+          }
+        ],
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "LAST-MILE",
+        "unit": "demo_party_slot",
+        "capacity_basis": "residual",
+        "calendar": [
+          {
+            "start_tick": -2,
+            "end_tick": 30,
+            "capacity": 4
+          }
+        ],
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      }
+    ],
+    "services": [
+      {
+        "id": "A",
+        "load_window": {
+          "start_tick": 4,
+          "end_tick": 6
+        },
+        "departure_tick": 6,
+        "capacity": 2,
+        "unit": "demo_party_slot",
+        "edge_ids": [
+          "MU",
+          "UV",
+          "VD"
+        ],
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "B",
+        "load_window": {
+          "start_tick": 12,
+          "end_tick": 14
+        },
+        "departure_tick": 14,
+        "capacity": 2,
+        "unit": "demo_party_slot",
+        "edge_ids": [
+          "MU",
+          "UV",
+          "VD"
+        ],
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      }
+    ],
+    "restrictions": [],
+    "duration_estimates": [
+      {
+        "id": "E1",
+        "value_tick": 1,
+        "unit": "scenario_step",
+        "method": "manual_demo",
+        "model_version": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "E2",
+        "value_tick": 2,
+        "unit": "scenario_step",
+        "method": "manual_demo",
+        "model_version": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "E3",
+        "value_tick": 3,
+        "unit": "scenario_step",
+        "method": "manual_demo",
+        "model_version": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "E4",
+        "value_tick": 4,
+        "unit": "scenario_step",
+        "method": "manual_demo",
+        "model_version": null,
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "id": "DEMO-CASE",
+        "origin_kind": "synthetic",
+        "source_ref": "концепт/07_основной_сценарий.md; явно учебный набор",
+        "observed_at": null,
+        "received_at": null,
+        "quality_note": "Не операционные сведения",
+        "rights_note": "Рабочий пример команды"
+      }
+    ],
+    "assumptions": [
+      {
+        "id": "DEMO-PRECONDITIONS",
+        "description": "Совместимость, документы и остаточные ресурсы заданы как учебные предусловия; размеры/массы не подтверждены. Временная метка создания иллюстративная.",
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      },
+      {
+        "id": "DEMO-RECEIPT-AND-COMMITMENTS",
+        "description": "Окна приёма и будущие условия рейсов заданы синтетически. Реальных согласований нет.",
+        "evidence_ids": [
+          "DEMO-CASE"
+        ]
+      }
+    ],
+    "reservations": [
+      {
+        "id": "RES-P1-LOAD",
+        "party_id": "P1",
+        "resource_id": "M-CRANE",
+        "route_candidate_ids": [
+          "P1-main"
+        ],
+        "start": {
+          "kind": "operation_start",
+          "operation_id": "P1-LOAD"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P1-LOAD"
+        },
+        "release_lag_tick": 0,
+        "amount": 1
+      },
+      {
+        "id": "RES-P1-UNLOAD",
+        "party_id": "P1",
+        "resource_id": "D-UNLOAD",
+        "route_candidate_ids": [
+          "P1-main"
+        ],
+        "start": {
+          "kind": "operation_start",
+          "operation_id": "P1-UNLOAD"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P1-UNLOAD"
+        },
+        "release_lag_tick": 0,
+        "amount": 1
+      },
+      {
+        "id": "RES-P1-DR",
+        "party_id": "P1",
+        "resource_id": "LAST-MILE",
+        "route_candidate_ids": [
+          "P1-main"
+        ],
+        "start": {
+          "kind": "operation_start",
+          "operation_id": "P1-DR"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P1-DR"
+        },
+        "release_lag_tick": 0,
+        "amount": 1
+      },
+      {
+        "id": "YARD-P1-main",
+        "party_id": "P1",
+        "resource_id": "M-YARD",
+        "route_candidate_ids": [
+          "P1-main"
+        ],
+        "start": {
+          "kind": "fixed_tick",
+          "tick": 0
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P1-LOAD"
+        },
+        "release_lag_tick": 1,
+        "amount": 1
+      },
+      {
+        "id": "RES-P2-OB-PAST",
+        "party_id": "P2",
+        "resource_id": "RAIL-OB",
+        "route_candidate_ids": [
+          "P2-main"
+        ],
+        "start": {
+          "kind": "operation_start",
+          "operation_id": "P2-OB-PAST"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P2-OB-PAST"
+        },
+        "release_lag_tick": 0,
+        "amount": 1
+      },
+      {
+        "id": "RES-P2-BM",
+        "party_id": "P2",
+        "resource_id": "RAIL-BM",
+        "route_candidate_ids": [
+          "P2-main"
+        ],
+        "start": {
+          "kind": "operation_start",
+          "operation_id": "P2-BM"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P2-BM"
+        },
+        "release_lag_tick": 0,
+        "amount": 1
+      },
+      {
+        "id": "RES-P2-LOAD",
+        "party_id": "P2",
+        "resource_id": "M-CRANE",
+        "route_candidate_ids": [
+          "P2-main"
+        ],
+        "start": {
+          "kind": "operation_start",
+          "operation_id": "P2-LOAD"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P2-LOAD"
+        },
+        "release_lag_tick": 0,
+        "amount": 1
+      },
+      {
+        "id": "RES-P2-UNLOAD",
+        "party_id": "P2",
+        "resource_id": "D-UNLOAD",
+        "route_candidate_ids": [
+          "P2-main"
+        ],
+        "start": {
+          "kind": "operation_start",
+          "operation_id": "P2-UNLOAD"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P2-UNLOAD"
+        },
+        "release_lag_tick": 0,
+        "amount": 1
+      },
+      {
+        "id": "RES-P2-DR",
+        "party_id": "P2",
+        "resource_id": "LAST-MILE",
+        "route_candidate_ids": [
+          "P2-main"
+        ],
+        "start": {
+          "kind": "operation_start",
+          "operation_id": "P2-DR"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P2-DR"
+        },
+        "release_lag_tick": 0,
+        "amount": 1
+      },
+      {
+        "id": "YARD-P2-main",
+        "party_id": "P2",
+        "resource_id": "M-YARD",
+        "route_candidate_ids": [
+          "P2-main"
+        ],
+        "start": {
+          "kind": "operation_end",
+          "operation_id": "P2-BM"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P2-LOAD"
+        },
+        "release_lag_tick": 1,
+        "amount": 1
+      },
+      {
+        "id": "RES-P3-SO",
+        "party_id": "P3",
+        "resource_id": "ACCESS",
+        "route_candidate_ids": [
+          "P3-main",
+          "P3-alt"
+        ],
+        "start": {
+          "kind": "operation_start",
+          "operation_id": "P3-SO"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P3-SO"
+        },
+        "release_lag_tick": 0,
+        "amount": 1
+      },
+      {
+        "id": "RES-P3-WAIT-O",
+        "party_id": "P3",
+        "resource_id": "O-WAIT",
+        "route_candidate_ids": [
+          "P3-main"
+        ],
+        "start": {
+          "kind": "operation_start",
+          "operation_id": "P3-WAIT-O"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P3-WAIT-O"
+        },
+        "release_lag_tick": 0,
+        "amount": 1
+      },
+      {
+        "id": "RES-P3-OB",
+        "party_id": "P3",
+        "resource_id": "RAIL-OB",
+        "route_candidate_ids": [
+          "P3-main"
+        ],
+        "start": {
+          "kind": "operation_start",
+          "operation_id": "P3-OB"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P3-OB"
+        },
+        "release_lag_tick": 0,
+        "amount": 1
+      },
+      {
+        "id": "RES-P3-BM",
+        "party_id": "P3",
+        "resource_id": "RAIL-BM",
+        "route_candidate_ids": [
+          "P3-main"
+        ],
+        "start": {
+          "kind": "operation_start",
+          "operation_id": "P3-BM"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P3-BM"
+        },
+        "release_lag_tick": 0,
+        "amount": 1
+      },
+      {
+        "id": "RES-P3-WAIT-O-ALT",
+        "party_id": "P3",
+        "resource_id": "O-WAIT",
+        "route_candidate_ids": [
+          "P3-alt"
+        ],
+        "start": {
+          "kind": "operation_start",
+          "operation_id": "P3-WAIT-O-ALT"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P3-WAIT-O-ALT"
+        },
+        "release_lag_tick": 0,
+        "amount": 1
+      },
+      {
+        "id": "RES-P3-OC",
+        "party_id": "P3",
+        "resource_id": "RAIL-OC",
+        "route_candidate_ids": [
+          "P3-alt"
+        ],
+        "start": {
+          "kind": "operation_start",
+          "operation_id": "P3-OC"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P3-OC"
+        },
+        "release_lag_tick": 0,
+        "amount": 1
+      },
+      {
+        "id": "RES-P3-CM",
+        "party_id": "P3",
+        "resource_id": "RAIL-CM",
+        "route_candidate_ids": [
+          "P3-alt"
+        ],
+        "start": {
+          "kind": "operation_start",
+          "operation_id": "P3-CM"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P3-CM"
+        },
+        "release_lag_tick": 0,
+        "amount": 1
+      },
+      {
+        "id": "RES-P3-LOAD",
+        "party_id": "P3",
+        "resource_id": "M-CRANE",
+        "route_candidate_ids": [
+          "P3-main",
+          "P3-alt"
+        ],
+        "start": {
+          "kind": "operation_start",
+          "operation_id": "P3-LOAD"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P3-LOAD"
+        },
+        "release_lag_tick": 0,
+        "amount": 1
+      },
+      {
+        "id": "RES-P3-UNLOAD",
+        "party_id": "P3",
+        "resource_id": "D-UNLOAD",
+        "route_candidate_ids": [
+          "P3-main",
+          "P3-alt"
+        ],
+        "start": {
+          "kind": "operation_start",
+          "operation_id": "P3-UNLOAD"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P3-UNLOAD"
+        },
+        "release_lag_tick": 0,
+        "amount": 1
+      },
+      {
+        "id": "RES-P3-DR",
+        "party_id": "P3",
+        "resource_id": "LAST-MILE",
+        "route_candidate_ids": [
+          "P3-main",
+          "P3-alt"
+        ],
+        "start": {
+          "kind": "operation_start",
+          "operation_id": "P3-DR"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P3-DR"
+        },
+        "release_lag_tick": 0,
+        "amount": 1
+      },
+      {
+        "id": "YARD-P3-main",
+        "party_id": "P3",
+        "resource_id": "M-YARD",
+        "route_candidate_ids": [
+          "P3-main"
+        ],
+        "start": {
+          "kind": "operation_end",
+          "operation_id": "P3-BM"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P3-LOAD"
+        },
+        "release_lag_tick": 1,
+        "amount": 1
+      },
+      {
+        "id": "YARD-P3-alt",
+        "party_id": "P3",
+        "resource_id": "M-YARD",
+        "route_candidate_ids": [
+          "P3-alt"
+        ],
+        "start": {
+          "kind": "operation_end",
+          "operation_id": "P3-CM"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P3-LOAD"
+        },
+        "release_lag_tick": 1,
+        "amount": 1
+      },
+      {
+        "id": "RES-P4-SO",
+        "party_id": "P4",
+        "resource_id": "ACCESS",
+        "route_candidate_ids": [
+          "P4-main",
+          "P4-alt"
+        ],
+        "start": {
+          "kind": "operation_start",
+          "operation_id": "P4-SO"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P4-SO"
+        },
+        "release_lag_tick": 0,
+        "amount": 1
+      },
+      {
+        "id": "RES-P4-WAIT-O",
+        "party_id": "P4",
+        "resource_id": "O-WAIT",
+        "route_candidate_ids": [
+          "P4-main"
+        ],
+        "start": {
+          "kind": "operation_start",
+          "operation_id": "P4-WAIT-O"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P4-WAIT-O"
+        },
+        "release_lag_tick": 0,
+        "amount": 1
+      },
+      {
+        "id": "RES-P4-OB",
+        "party_id": "P4",
+        "resource_id": "RAIL-OB",
+        "route_candidate_ids": [
+          "P4-main"
+        ],
+        "start": {
+          "kind": "operation_start",
+          "operation_id": "P4-OB"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P4-OB"
+        },
+        "release_lag_tick": 0,
+        "amount": 1
+      },
+      {
+        "id": "RES-P4-BM",
+        "party_id": "P4",
+        "resource_id": "RAIL-BM",
+        "route_candidate_ids": [
+          "P4-main"
+        ],
+        "start": {
+          "kind": "operation_start",
+          "operation_id": "P4-BM"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P4-BM"
+        },
+        "release_lag_tick": 0,
+        "amount": 1
+      },
+      {
+        "id": "RES-P4-WAIT-O-ALT",
+        "party_id": "P4",
+        "resource_id": "O-WAIT",
+        "route_candidate_ids": [
+          "P4-alt"
+        ],
+        "start": {
+          "kind": "operation_start",
+          "operation_id": "P4-WAIT-O-ALT"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P4-WAIT-O-ALT"
+        },
+        "release_lag_tick": 0,
+        "amount": 1
+      },
+      {
+        "id": "RES-P4-OC",
+        "party_id": "P4",
+        "resource_id": "RAIL-OC",
+        "route_candidate_ids": [
+          "P4-alt"
+        ],
+        "start": {
+          "kind": "operation_start",
+          "operation_id": "P4-OC"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P4-OC"
+        },
+        "release_lag_tick": 0,
+        "amount": 1
+      },
+      {
+        "id": "RES-P4-CM",
+        "party_id": "P4",
+        "resource_id": "RAIL-CM",
+        "route_candidate_ids": [
+          "P4-alt"
+        ],
+        "start": {
+          "kind": "operation_start",
+          "operation_id": "P4-CM"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P4-CM"
+        },
+        "release_lag_tick": 0,
+        "amount": 1
+      },
+      {
+        "id": "RES-P4-LOAD",
+        "party_id": "P4",
+        "resource_id": "M-CRANE",
+        "route_candidate_ids": [
+          "P4-main",
+          "P4-alt"
+        ],
+        "start": {
+          "kind": "operation_start",
+          "operation_id": "P4-LOAD"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P4-LOAD"
+        },
+        "release_lag_tick": 0,
+        "amount": 1
+      },
+      {
+        "id": "RES-P4-UNLOAD",
+        "party_id": "P4",
+        "resource_id": "D-UNLOAD",
+        "route_candidate_ids": [
+          "P4-main",
+          "P4-alt"
+        ],
+        "start": {
+          "kind": "operation_start",
+          "operation_id": "P4-UNLOAD"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P4-UNLOAD"
+        },
+        "release_lag_tick": 0,
+        "amount": 1
+      },
+      {
+        "id": "RES-P4-DR",
+        "party_id": "P4",
+        "resource_id": "LAST-MILE",
+        "route_candidate_ids": [
+          "P4-main",
+          "P4-alt"
+        ],
+        "start": {
+          "kind": "operation_start",
+          "operation_id": "P4-DR"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P4-DR"
+        },
+        "release_lag_tick": 0,
+        "amount": 1
+      },
+      {
+        "id": "YARD-P4-main",
+        "party_id": "P4",
+        "resource_id": "M-YARD",
+        "route_candidate_ids": [
+          "P4-main"
+        ],
+        "start": {
+          "kind": "operation_end",
+          "operation_id": "P4-BM"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P4-LOAD"
+        },
+        "release_lag_tick": 1,
+        "amount": 1
+      },
+      {
+        "id": "YARD-P4-alt",
+        "party_id": "P4",
+        "resource_id": "M-YARD",
+        "route_candidate_ids": [
+          "P4-alt"
+        ],
+        "start": {
+          "kind": "operation_end",
+          "operation_id": "P4-CM"
+        },
+        "end": {
+          "kind": "operation_end",
+          "operation_id": "P4-LOAD"
+        },
+        "release_lag_tick": 1,
+        "amount": 1
+      }
+    ],
+    "limits": {
+      "attempt_budget_ms": 5000,
+      "absolute_gap_limit": 0,
+      "relative_gap_limit": 0
+    },
+    "receipt_constraints": [
+      {
+        "party_id": "P1",
+        "event": "recipient_acceptance",
+        "windows": [
+          {
+            "id": "WINDOW-P1",
+            "start_tick": 0,
+            "end_tick": 23,
+            "evidence_ids": [
+              "DEMO-CASE"
+            ],
+            "status": "demo_precondition"
+          }
+        ]
+      },
+      {
+        "party_id": "P2",
+        "event": "recipient_acceptance",
+        "windows": [
+          {
+            "id": "WINDOW-P2",
+            "start_tick": 0,
+            "end_tick": 23,
+            "evidence_ids": [
+              "DEMO-CASE"
+            ],
+            "status": "demo_precondition"
+          }
+        ]
+      },
+      {
+        "party_id": "P3",
+        "event": "recipient_acceptance",
+        "windows": [
+          {
+            "id": "WINDOW-P3",
+            "start_tick": 0,
+            "end_tick": 27,
+            "evidence_ids": [
+              "DEMO-CASE"
+            ],
+            "status": "demo_precondition"
+          }
+        ]
+      },
+      {
+        "party_id": "P4",
+        "event": "recipient_acceptance",
+        "windows": [
+          {
+            "id": "WINDOW-P4",
+            "start_tick": 0,
+            "end_tick": 27,
+            "evidence_ids": [
+              "DEMO-CASE"
+            ],
+            "status": "demo_precondition"
+          }
+        ]
+      }
+    ],
+    "commitments": [
+      {
+        "id": "COMMIT-A",
+        "kind": "service_conditions",
+        "validity": {
+          "start_tick": 0,
+          "end_tick": 30
+        },
+        "evidence_ids": [
+          "DEMO-CASE"
+        ],
+        "status": "demo_precondition",
+        "service_id": "A",
+        "departure_tick": 6,
+        "load_window": {
+          "start_tick": 4,
+          "end_tick": 6
+        }
+      },
+      {
+        "id": "COMMIT-B",
+        "kind": "service_conditions",
+        "validity": {
+          "start_tick": 0,
+          "end_tick": 30
+        },
+        "evidence_ids": [
+          "DEMO-CASE"
+        ],
+        "status": "demo_precondition",
+        "service_id": "B",
+        "departure_tick": 14,
+        "load_window": {
+          "start_tick": 12,
+          "end_tick": 14
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "fixture_notice": "Учебный пример контракта. HTTP/решатель не запускались; значения статусов гипотетические, техническое время не измерено.",
+  "execution": "not_executed",
+  "payload_schema": "urn:proarctic:replan:v1:error",
+  "payload": {
+    "contract_version": "planning-replan.v1",
+    "calculation_id": "DEMO-CALC-S1",
+    "attempt_id": "DEMO-ATTEMPT-1",
+    "error": {
+      "code": "INPUT_INVALID",
+      "message": "Иллюстрация ошибки входа; HTTP не вызывался.",
+      "field_errors": [
+        {
+          "path": "$.parties[3].due_tick",
+          "code": "REQUIRED_INTEGER"
+        }
+      ],
+      "diagnostic_solver_status": null
+    }
+  }
+}
