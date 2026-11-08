@@ -1,0 +1,114 @@
+name: rzd-arctica
+
+services:
+  bootstrap:
+    build:
+      context: .
+      dockerfile: docker/backend.Dockerfile
+      target: bootstrap
+    volumes:
+      - auth-data:/workspace/.local
+      - database-secrets:/run/rzd-database
+    restart: "no"
+
+  postgres:
+    image: postgres:18.1-bookworm
+    environment:
+      POSTGRES_USER: rzd_admin
+      POSTGRES_DB: rzd_arctica_demo
+      POSTGRES_PASSWORD_FILE: /run/rzd-database/admin-password
+    volumes:
+      - postgres-data:/var/lib/postgresql
+      - database-secrets:/run/rzd-database:ro
+      - ./docker/init-database.sh:/docker-entrypoint-initdb.d/10-rzd.sh:ro
+    depends_on:
+      bootstrap:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U rzd_admin -d rzd_arctica_demo"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 15s
+    restart: unless-stopped
+
+  compute:
+    build:
+      context: .
+      dockerfile: docker/compute.Dockerfile
+    command: ["python", "app/compute/main.py", "--host", "0.0.0.0"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8091/health', timeout=2).read()"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 15s
+    restart: unless-stopped
+
+  simulator:
+    build:
+      context: .
+      dockerfile: docker/simulator.Dockerfile
+    command: ["python", "app/simulator/main.py", "--host", "0.0.0.0"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8094/health', timeout=2).read()"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 10s
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: .
+      dockerfile: docker/backend.Dockerfile
+      target: runtime
+    environment:
+      RZD_DEPLOYMENT_MODE: compose
+      RZD_HTTP_ADDR: 0.0.0.0:8090
+      RZD_COMPUTE_URL: http://compute:8091
+      RZD_SIMULATOR_URL: http://simulator:8094
+      RZD_UI_ORIGIN: http://localhost:${RZD_WEB_PORT:-8080}
+      RZD_AUTH_FILE: /workspace/.local/auth.private.json
+    volumes:
+      - auth-data:/workspace/.local:ro
+      - database-secrets:/run/rzd-database:ro
+    depends_on:
+      bootstrap:
+        condition: service_completed_successfully
+      postgres:
+        condition: service_healthy
+      compute:
+        condition: service_healthy
+      simulator:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--silent", "--max-time", "2", "http://127.0.0.1:8090/api/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 15s
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend.Dockerfile
+    ports:
+      - "127.0.0.1:${RZD_WEB_PORT:-8080}:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+        restart: true
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--spider", "http://127.0.0.1/healthz"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 5s
+    restart: unless-stopped
+
+volumes:
+  postgres-data:
+  auth-data:
+  database-secrets:

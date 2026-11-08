@@ -14,6 +14,40 @@ React показывает положение партий, события, ср
 - app/simulator — HTTP-имитатор событий.
 - app/checks — сквозные HTTP-проверки.
 
+## Запуск через Docker одной командой
+
+Нужны работающий Docker Engine с Linux-контейнерами, Docker Compose с поддержкой depends_on/healthcheck и GNU Make. На Windows Docker Desktop должен успешно запускать Linux-движок через WSL2. Make устанавливается отдельно от Docker Desktop. Если в Windows GNU Make доступен как mingw32-make, используйте mingw32-make up.
+
+Из корня репозитория выполните
+
+~~~sh
+make up
+~~~
+
+Команда собирает образы, создаёт отдельные Docker-тома, генерирует учебные ключи и случайные пароли PostgreSQL, запускает сервисы и ждёт их готовности. После успешного запуска она выводит адрес http://localhost:8080/#simulation и ключ координатора. Браузер должен использовать именно localhost, поскольку сервер проверяет настроенный Origin.
+
+PostgreSQL, вычислитель, имитатор и Go-сервер доступны внутри сети Compose. Наружу на loopback опубликован порт nginx 8080. Для другого свободного порта можно выполнить RZD_WEB_PORT=8082 make up.
+
+~~~sh
+make key
+make ps
+make logs
+make down
+~~~
+
+make key повторно показывает ключ координатора. make down останавливает контейнеры и сохраняет тома. Следующий make up использует прежнюю базу, ключи и пароли. Учебные ключи действуют 168 часов. При неполном комплекте или истечении ключей bootstrap останавливается с объяснением. Для нового независимого контура используйте другое имя проекта, например COMPOSE_PROJECT_NAME=rzd-arctica-next make up. Сохранённые данные прежнего проекта остаются в его томах.
+
+Без GNU Make тот же запуск доступен через Docker Compose
+
+~~~sh
+docker compose up --build --detach --wait --wait-timeout 180
+docker compose run --rm --no-deps --entrypoint python bootstrap /usr/local/bin/show-key.py
+~~~
+
+Конфигурация Compose проверяется командой make check или docker compose config --quiet. Docker-образы используют lock-файлы зависимостей приложения.
+
+Порядок запуска основан на штатных healthcheck и service_completed_successfully. [Документация Docker Compose](https://docs.docker.com/compose/how-tos/startup-order/).
+
 ## Подготовка
 
 Нужны Node.js 22+, Go с поддержкой версии из go.mod, Python 3.12 и собственная PostgreSQL. Команды выполняются из корня клонированного репозитория.

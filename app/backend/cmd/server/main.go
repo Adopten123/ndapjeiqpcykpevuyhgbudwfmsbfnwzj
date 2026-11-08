@@ -53,11 +53,11 @@ func run(logger *slog.Logger) error {
 	if err != nil {
 		return err
 	}
-	if !config.IsolatedDatabase(poolCfg.ConnConfig.Host, poolCfg.ConnConfig.Database) {
+	if !cfg.IsolatedDatabase(poolCfg.ConnConfig.Host, poolCfg.ConnConfig.Database) {
 		return errors.New("требуется отдельная локальная учебная база")
 	}
 	for _, fallback := range poolCfg.ConnConfig.Fallbacks {
-		if !config.LoopbackHost(fallback.Host) {
+		if !cfg.AllowedDatabaseHost(fallback.Host) {
 			return errors.New("внешние резервные адреса БД запрещены в демо")
 		}
 	}
