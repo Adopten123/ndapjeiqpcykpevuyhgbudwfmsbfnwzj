@@ -1,0 +1,302 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:proarctic:replan:v1:response",
+  "title": "Результат учебного пересчёта, проект v1",
+  "type": "object",
+  "properties": {
+    "contract_version": {
+      "const": "planning-replan.v1"
+    },
+    "data_mode": {
+      "const": "demo"
+    },
+    "calculation_id": {
+      "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+    },
+    "attempt_id": {
+      "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+    },
+    "snapshot_id": {
+      "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+    },
+    "policy_id": {
+      "const": "recovery-lex.v1"
+    },
+    "baseline_plan_id": {
+      "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+    },
+    "outcome": {
+      "enum": [
+        "with_candidate",
+        "no_candidate"
+      ]
+    },
+    "candidate_stage": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "solver_status": {
+      "enum": [
+        "OPTIMAL",
+        "FEASIBLE",
+        "UNKNOWN",
+        "INFEASIBLE"
+      ]
+    },
+    "candidate": {
+      "anyOf": [
+        {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/plan"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "party_metrics": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:proarctic:replan:v1:common#/$defs/metric"
+      },
+      "minItems": 0
+    },
+    "objective": {
+      "anyOf": [
+        {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/objective"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "changed_group_ids": {
+      "$ref": "urn:proarctic:replan:v1:common#/$defs/ids"
+    },
+    "optimization_stages": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:proarctic:replan:v1:common#/$defs/stage"
+      },
+      "minItems": 1,
+      "maxItems": 3
+    },
+    "proven_prefix": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "validation": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "candidate_requires_go_check",
+            "no_candidate"
+          ]
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:proarctic:replan:v1:common#/$defs/text"
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "status",
+        "notes"
+      ],
+      "additionalProperties": false
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:proarctic:replan:v1:common#/$defs/text"
+      },
+      "minItems": 0
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:proarctic:replan:v1:common#/$defs/text"
+      },
+      "minItems": 0
+    },
+    "algorithm": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "const": "cp-sat-recovery"
+        },
+        "version": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/text"
+        }
+      },
+      "required": [
+        "name",
+        "version"
+      ],
+      "additionalProperties": false
+    },
+    "timing": {
+      "type": "object",
+      "properties": {
+        "elapsed_ms": {
+          "anyOf": [
+            {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/nonnegative"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "elapsed_ms"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "contract_version",
+    "data_mode",
+    "calculation_id",
+    "attempt_id",
+    "snapshot_id",
+    "policy_id",
+    "baseline_plan_id",
+    "outcome",
+    "candidate_stage",
+    "solver_status",
+    "candidate",
+    "party_metrics",
+    "objective",
+    "changed_group_ids",
+    "optimization_stages",
+    "proven_prefix",
+    "validation",
+    "warnings",
+    "assumptions",
+    "algorithm",
+    "timing"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "outcome": {
+            "const": "with_candidate"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "candidate": {
+            "$ref": "urn:proarctic:replan:v1:common#/$defs/plan"
+          },
+          "party_metrics": {
+            "type": "array",
+            "items": {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/metric"
+            },
+            "minItems": 4,
+            "maxItems": 4
+          },
+          "objective": {
+            "$ref": "urn:proarctic:replan:v1:common#/$defs/objective"
+          },
+          "candidate_stage": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3
+          },
+          "solver_status": {
+            "enum": [
+              "OPTIMAL",
+              "FEASIBLE"
+            ]
+          },
+          "validation": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "const": "candidate_requires_go_check"
+              },
+              "notes": {
+                "type": "array",
+                "items": {
+                  "$ref": "urn:proarctic:replan:v1:common#/$defs/text"
+                },
+                "minItems": 0
+              }
+            },
+            "required": [
+              "status",
+              "notes"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "candidate": {
+            "type": "null"
+          },
+          "candidate_stage": {
+            "type": "null"
+          },
+          "party_metrics": {
+            "maxItems": 0
+          },
+          "objective": {
+            "type": "null"
+          },
+          "changed_group_ids": {
+            "maxItems": 0
+          },
+          "solver_status": {
+            "enum": [
+              "UNKNOWN",
+              "INFEASIBLE"
+            ]
+          },
+          "proven_prefix": {
+            "const": 0
+          },
+          "validation": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "const": "no_candidate"
+              },
+              "notes": {
+                "type": "array",
+                "items": {
+                  "$ref": "urn:proarctic:replan:v1:common#/$defs/text"
+                },
+                "minItems": 0
+              }
+            },
+            "required": [
+              "status",
+              "notes"
+            ],
+            "additionalProperties": false
+          }
+        }
+      }
+    }
+  ]
+}

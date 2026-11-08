@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:proarctic:replan:v1:error",
+  "title": "Ошибка внутреннего пересчёта, проект v1",
+  "type": "object",
+  "properties": {
+    "contract_version": {
+      "const": "planning-replan.v1"
+    },
+    "calculation_id": {
+      "anyOf": [
+        {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "attempt_id": {
+      "anyOf": [
+        {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "error": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "enum": [
+            "INPUT_INVALID",
+            "MODEL_BUILD_ERROR",
+            "CALCULATION_FAILED"
+          ]
+        },
+        "message": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/text"
+        },
+        "field_errors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "$ref": "urn:proarctic:replan:v1:common#/$defs/text"
+              },
+              "code": {
+                "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+              }
+            },
+            "required": [
+              "path",
+              "code"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "diagnostic_solver_status": {
+          "enum": [
+            null,
+            "MODEL_INVALID"
+          ]
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "field_errors",
+        "diagnostic_solver_status"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "contract_version",
+    "calculation_id",
+    "attempt_id",
+    "error"
+  ],
+  "additionalProperties": false
+}

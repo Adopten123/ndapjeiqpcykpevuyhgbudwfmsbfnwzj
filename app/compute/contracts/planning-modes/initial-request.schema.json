@@ -1,0 +1,226 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:proarctic:planning:initial:v1:request",
+  "title": "Начальный расчёт без базы, рабочая детализация",
+  "type": "object",
+  "properties": {
+    "contract_version": {
+      "const": "planning-initial.v1"
+    },
+    "mode": {
+      "const": "initial"
+    },
+    "data_mode": {
+      "const": "demo"
+    },
+    "calculation_id": {
+      "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+    },
+    "attempt_id": {
+      "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+    },
+    "snapshot_id": {
+      "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+    },
+    "created_at": {
+      "$ref": "urn:proarctic:replan:v1:common#/$defs/utc"
+    },
+    "time_basis": {
+      "$ref": "urn:proarctic:replan:v1:common#/$defs/time_basis"
+    },
+    "policy": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "const": "initial-lex.v1"
+        },
+        "target_event": {
+          "const": "recipient_acceptance"
+        },
+        "objective_order": {
+          "const": [
+            "sum_remaining_tick",
+            "last_remaining_tick"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "target_event",
+        "objective_order"
+      ],
+      "additionalProperties": false
+    },
+    "parties": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:proarctic:replan:v1:common#/$defs/party"
+      },
+      "minItems": 4,
+      "maxItems": 4
+    },
+    "containers": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:proarctic:replan:v1:common#/$defs/container"
+      },
+      "minItems": 1
+    },
+    "transport_groups": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:proarctic:replan:v1:common#/$defs/transport_group"
+      },
+      "minItems": 0
+    },
+    "locations": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:proarctic:replan:v1:common#/$defs/location"
+      },
+      "minItems": 1
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:proarctic:replan:v1:common#/$defs/edge"
+      },
+      "minItems": 1
+    },
+    "route_candidates": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:proarctic:replan:v1:common#/$defs/route"
+      },
+      "minItems": 1
+    },
+    "operations": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:proarctic:replan:v1:common#/$defs/operation"
+      },
+      "minItems": 1
+    },
+    "facts": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:proarctic:replan:v1:common#/$defs/fact"
+      },
+      "minItems": 0
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:proarctic:replan:v1:common#/$defs/resource"
+      },
+      "minItems": 1
+    },
+    "services": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:proarctic:replan:v1:common#/$defs/service"
+      },
+      "minItems": 1
+    },
+    "restrictions": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:proarctic:replan:v1:common#/$defs/restriction"
+      },
+      "minItems": 0
+    },
+    "duration_estimates": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:proarctic:replan:v1:common#/$defs/estimate"
+      },
+      "minItems": 1
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:proarctic:replan:v1:common#/$defs/evidence"
+      },
+      "minItems": 1
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:proarctic:replan:v1:common#/$defs/assumption"
+      },
+      "minItems": 0
+    },
+    "reservations": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:proarctic:replan:v1:common#/$defs/reservation"
+      },
+      "minItems": 0
+    },
+    "limits": {
+      "type": "object",
+      "properties": {
+        "attempt_budget_ms": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/positive"
+        },
+        "absolute_gap_limit": {
+          "const": 0
+        },
+        "relative_gap_limit": {
+          "const": 0
+        }
+      },
+      "required": [
+        "attempt_budget_ms",
+        "absolute_gap_limit",
+        "relative_gap_limit"
+      ],
+      "additionalProperties": false
+    },
+    "receipt_constraints": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:proarctic:planning:constraints:v1#/$defs/receipt_constraint"
+      },
+      "minItems": 4,
+      "maxItems": 4
+    },
+    "commitments": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:proarctic:planning:constraints:v1#/$defs/commitment"
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "contract_version",
+    "mode",
+    "data_mode",
+    "calculation_id",
+    "attempt_id",
+    "snapshot_id",
+    "created_at",
+    "time_basis",
+    "policy",
+    "parties",
+    "containers",
+    "transport_groups",
+    "locations",
+    "edges",
+    "route_candidates",
+    "operations",
+    "facts",
+    "resources",
+    "services",
+    "restrictions",
+    "duration_estimates",
+    "evidence",
+    "assumptions",
+    "reservations",
+    "limits",
+    "receipt_constraints",
+    "commitments"
+  ],
+  "additionalProperties": false
+}

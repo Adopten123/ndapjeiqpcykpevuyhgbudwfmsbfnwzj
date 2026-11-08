@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "noEmit": false,
+    "rootDir": "src",
+    "outDir": ".test-build"
+  },
+  "include": ["src/types.ts", "src/api.ts", "src/workflow.ts", "src/planning.ts", "src/researchOperation.ts", "src/routing.ts", "src/simulation.ts"]
+}

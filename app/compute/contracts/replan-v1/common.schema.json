@@ -1,0 +1,1291 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:proarctic:replan:v1:common",
+  "title": "Учебный пересчёт: общие типы, проект v1",
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    },
+    "tick": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "nonnegative": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "positive": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "utc": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?Z$"
+    },
+    "ids": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+      },
+      "uniqueItems": true
+    },
+    "interval": {
+      "type": "object",
+      "properties": {
+        "start_tick": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+        },
+        "end_tick": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+        }
+      },
+      "required": [
+        "start_tick",
+        "end_tick"
+      ],
+      "additionalProperties": false
+    },
+    "time_basis": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "scenario_steps"
+        },
+        "origin_label": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/text"
+        },
+        "now_tick": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+        },
+        "horizon_end_tick": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+        }
+      },
+      "required": [
+        "kind",
+        "origin_label",
+        "now_tick",
+        "horizon_end_tick"
+      ],
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "origin_kind": {
+          "enum": [
+            "synthetic",
+            "official_public",
+            "operational_confirmed",
+            "derived"
+          ]
+        },
+        "source_ref": {
+          "anyOf": [
+            {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/text"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "observed_at": {
+          "anyOf": [
+            {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/utc"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "received_at": {
+          "anyOf": [
+            {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/utc"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "quality_note": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/text"
+        },
+        "rights_note": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/text"
+        }
+      },
+      "required": [
+        "id",
+        "origin_kind",
+        "source_ref",
+        "observed_at",
+        "received_at",
+        "quality_note",
+        "rights_note"
+      ],
+      "additionalProperties": false
+    },
+    "assumption": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "description": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/text"
+        },
+        "evidence_ids": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/ids"
+        }
+      },
+      "required": [
+        "id",
+        "description",
+        "evidence_ids"
+      ],
+      "additionalProperties": false
+    },
+    "location": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "kind": {
+          "enum": [
+            "sender",
+            "station",
+            "route_node",
+            "terminal",
+            "recipient"
+          ]
+        },
+        "label": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/text"
+        },
+        "evidence_ids": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/ids"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "label",
+        "evidence_ids"
+      ],
+      "additionalProperties": false
+    },
+    "estimate": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "value_tick": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/positive"
+        },
+        "unit": {
+          "const": "scenario_step"
+        },
+        "method": {
+          "enum": [
+            "manual_demo",
+            "model_prediction"
+          ]
+        },
+        "model_version": {
+          "anyOf": [
+            {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "evidence_ids": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/ids"
+        }
+      },
+      "required": [
+        "id",
+        "value_tick",
+        "unit",
+        "method",
+        "model_version",
+        "evidence_ids"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "manual_demo"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "model_version": {
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "model_version": {
+                "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "edge": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "from_location_id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "to_location_id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "mode": {
+          "enum": [
+            "initial_transfer",
+            "rail",
+            "sea",
+            "last_mile"
+          ]
+        },
+        "estimate_id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "evidence_ids": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/ids"
+        }
+      },
+      "required": [
+        "id",
+        "from_location_id",
+        "to_location_id",
+        "mode",
+        "estimate_id",
+        "evidence_ids"
+      ],
+      "additionalProperties": false
+    },
+    "route": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "party_id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "edge_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "evidence_ids": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/ids"
+        }
+      },
+      "required": [
+        "id",
+        "party_id",
+        "edge_ids",
+        "evidence_ids"
+      ],
+      "additionalProperties": false
+    },
+    "current": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "at_location"
+            },
+            "location_id": {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+            }
+          },
+          "required": [
+            "kind",
+            "location_id"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "on_edge"
+            },
+            "edge_id": {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+            },
+            "started_tick": {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+            },
+            "operation_id": {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+            }
+          },
+          "required": [
+            "kind",
+            "edge_id",
+            "started_tick",
+            "operation_id"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "party": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "ready_tick": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+        },
+        "due_tick": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+        },
+        "min_preload_preparation_tick": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/nonnegative",
+          "description": "Минимальный интервал от приёма терминалом до начала погрузки; отдельно от окончания ожидания."
+        },
+        "current": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/current"
+        },
+        "container_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "transport_group_ids": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/ids"
+        },
+        "allowed_service_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "port_receipt_operation_id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "recipient_receipt_operation_id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "evidence_ids": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/ids"
+        }
+      },
+      "required": [
+        "id",
+        "ready_tick",
+        "due_tick",
+        "min_preload_preparation_tick",
+        "current",
+        "container_ids",
+        "transport_group_ids",
+        "allowed_service_ids",
+        "port_receipt_operation_id",
+        "recipient_receipt_operation_id",
+        "evidence_ids"
+      ],
+      "additionalProperties": false
+    },
+    "container": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "party_id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "profile": {
+          "const": "dry_nonhazardous_packed"
+        },
+        "size_type": {
+          "anyOf": [
+            {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/text"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "gross_mass_kg": {
+          "anyOf": [
+            {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/positive"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "evidence_ids": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/ids"
+        }
+      },
+      "required": [
+        "id",
+        "party_id",
+        "profile",
+        "size_type",
+        "gross_mass_kg",
+        "evidence_ids"
+      ],
+      "additionalProperties": false
+    },
+    "transport_group": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "party_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "indivisible": {
+          "type": "boolean"
+        },
+        "evidence_ids": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/ids"
+        }
+      },
+      "required": [
+        "id",
+        "party_ids",
+        "indivisible",
+        "evidence_ids"
+      ],
+      "additionalProperties": false
+    },
+    "duration": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "estimate"
+            },
+            "estimate_id": {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+            }
+          },
+          "required": [
+            "kind",
+            "estimate_id"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "decision"
+            },
+            "min_tick": {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/nonnegative"
+            },
+            "max_tick": {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/nonnegative"
+            }
+          },
+          "required": [
+            "kind",
+            "min_tick",
+            "max_tick"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "operation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "party_id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "kind": {
+          "enum": [
+            "move",
+            "load",
+            "unload",
+            "wait"
+          ]
+        },
+        "from_location_id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "to_location_id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "edge_id": {
+          "anyOf": [
+            {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "route_candidate_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "service_id": {
+          "anyOf": [
+            {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "transport_group_id": {
+          "anyOf": [
+            {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "duration": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/duration"
+        },
+        "predecessor_ids": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/ids",
+          "description": "Учитываются завершённые предшественники и предшественники выбранного пути; исключённая альтернативная ветвь не блокирует операцию."
+        },
+        "min_predecessor_lag_tick": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/nonnegative"
+        },
+        "state": {
+          "enum": [
+            "planned",
+            "in_progress",
+            "completed"
+          ]
+        },
+        "fixed_start_tick": {
+          "anyOf": [
+            {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fixed_end_tick": {
+          "anyOf": [
+            {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "evidence_ids": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/ids"
+        }
+      },
+      "required": [
+        "id",
+        "party_id",
+        "kind",
+        "from_location_id",
+        "to_location_id",
+        "edge_id",
+        "route_candidate_ids",
+        "service_id",
+        "transport_group_id",
+        "duration",
+        "predecessor_ids",
+        "min_predecessor_lag_tick",
+        "state",
+        "fixed_start_tick",
+        "fixed_end_tick",
+        "evidence_ids"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "move"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "edge_id": {
+                "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "edge_id": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "planned"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "fixed_start_tick": {
+                "type": "null"
+              },
+              "fixed_end_tick": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "in_progress"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "fixed_start_tick": {
+                "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+              },
+              "fixed_end_tick": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "completed"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "fixed_start_tick": {
+                "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+              },
+              "fixed_end_tick": {
+                "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "fact": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "party_id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "event_kind": {
+          "enum": [
+            "terminal_received",
+            "operation_started",
+            "operation_completed"
+          ]
+        },
+        "operation_id": {
+          "anyOf": [
+            {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "location_id": {
+          "anyOf": [
+            {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "event_tick": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+        },
+        "evidence_ids": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/ids"
+        }
+      },
+      "required": [
+        "id",
+        "party_id",
+        "event_kind",
+        "operation_id",
+        "location_id",
+        "event_tick",
+        "evidence_ids"
+      ],
+      "additionalProperties": false
+    },
+    "calendar_segment": {
+      "type": "object",
+      "properties": {
+        "start_tick": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+        },
+        "end_tick": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+        },
+        "capacity": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/nonnegative"
+        }
+      },
+      "required": [
+        "start_tick",
+        "end_tick",
+        "capacity"
+      ],
+      "additionalProperties": false
+    },
+    "resource": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "unit": {
+          "const": "demo_party_slot"
+        },
+        "capacity_basis": {
+          "const": "residual"
+        },
+        "calendar": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:proarctic:replan:v1:common#/$defs/calendar_segment"
+          },
+          "minItems": 1
+        },
+        "evidence_ids": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/ids"
+        }
+      },
+      "required": [
+        "id",
+        "unit",
+        "capacity_basis",
+        "calendar",
+        "evidence_ids"
+      ],
+      "additionalProperties": false
+    },
+    "anchor": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "fixed_tick"
+            },
+            "tick": {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+            }
+          },
+          "required": [
+            "kind",
+            "tick"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "enum": [
+                "operation_start",
+                "operation_end"
+              ]
+            },
+            "operation_id": {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+            }
+          },
+          "required": [
+            "kind",
+            "operation_id"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "reservation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "party_id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "resource_id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "route_candidate_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "start": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/anchor"
+        },
+        "end": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/anchor"
+        },
+        "release_lag_tick": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/nonnegative"
+        },
+        "amount": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/positive"
+        }
+      },
+      "required": [
+        "id",
+        "party_id",
+        "resource_id",
+        "route_candidate_ids",
+        "start",
+        "end",
+        "release_lag_tick",
+        "amount"
+      ],
+      "additionalProperties": false
+    },
+    "service": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "load_window": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/interval"
+        },
+        "departure_tick": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+        },
+        "capacity": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/positive"
+        },
+        "unit": {
+          "const": "demo_party_slot"
+        },
+        "edge_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "evidence_ids": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/ids"
+        }
+      },
+      "required": [
+        "id",
+        "load_window",
+        "departure_tick",
+        "capacity",
+        "unit",
+        "edge_ids",
+        "evidence_ids"
+      ],
+      "additionalProperties": false
+    },
+    "restriction": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "edge_id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "start_tick": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+        },
+        "end": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "known"
+                },
+                "end_tick": {
+                  "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+                }
+              },
+              "required": [
+                "kind",
+                "end_tick"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "unknown"
+                }
+              },
+              "required": [
+                "kind"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "confirmation": {
+          "enum": [
+            "confirmed",
+            "unconfirmed"
+          ]
+        },
+        "evidence_ids": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/ids"
+        }
+      },
+      "required": [
+        "id",
+        "edge_id",
+        "start_tick",
+        "end",
+        "confirmation",
+        "evidence_ids"
+      ],
+      "additionalProperties": false
+    },
+    "assignment": {
+      "type": "object",
+      "properties": {
+        "group_id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "party_id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "route_id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "service_id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "departure_tick": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+        }
+      },
+      "required": [
+        "group_id",
+        "party_id",
+        "route_id",
+        "service_id",
+        "departure_tick"
+      ],
+      "additionalProperties": false
+    },
+    "controllable_group": {
+      "type": "object",
+      "properties": {
+        "group_id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "party_id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "departure_operation_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "compared_fields": {
+          "const": [
+            "route_id",
+            "service_id",
+            "departure_tick"
+          ]
+        }
+      },
+      "required": [
+        "group_id",
+        "party_id",
+        "departure_operation_ids",
+        "compared_fields"
+      ],
+      "additionalProperties": false
+    },
+    "schedule": {
+      "type": "object",
+      "properties": {
+        "operation_id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "start_tick": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+        },
+        "end_tick": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+        }
+      },
+      "required": [
+        "operation_id",
+        "start_tick",
+        "end_tick"
+      ],
+      "additionalProperties": false
+    },
+    "party_plan": {
+      "type": "object",
+      "properties": {
+        "party_id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "route_id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "service_id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "port_receipt_tick": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+        },
+        "recipient_receipt_tick": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+        }
+      },
+      "required": [
+        "party_id",
+        "route_id",
+        "service_id",
+        "port_receipt_tick",
+        "recipient_receipt_tick"
+      ],
+      "additionalProperties": false
+    },
+    "plan": {
+      "type": "object",
+      "properties": {
+        "party_plans": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:proarctic:replan:v1:common#/$defs/party_plan"
+          },
+          "minItems": 4,
+          "maxItems": 4
+        },
+        "scheduled_operations": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:proarctic:replan:v1:common#/$defs/schedule"
+          },
+          "minItems": 1
+        },
+        "fixed_fact_ids": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/ids"
+        }
+      },
+      "required": [
+        "party_plans",
+        "scheduled_operations",
+        "fixed_fact_ids"
+      ],
+      "additionalProperties": false
+    },
+    "metric": {
+      "type": "object",
+      "properties": {
+        "party_id": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/id"
+        },
+        "baseline_receipt_tick": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+        },
+        "candidate_receipt_tick": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+        },
+        "due_tick": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/tick"
+        },
+        "positive_shift_tick": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/nonnegative"
+        }
+      },
+      "required": [
+        "party_id",
+        "baseline_receipt_tick",
+        "candidate_receipt_tick",
+        "due_tick",
+        "positive_shift_tick"
+      ],
+      "additionalProperties": false
+    },
+    "objective": {
+      "type": "object",
+      "properties": {
+        "sum_positive_shift": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/nonnegative"
+        },
+        "max_positive_shift": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/nonnegative"
+        },
+        "changed_groups": {
+          "$ref": "urn:proarctic:replan:v1:common#/$defs/nonnegative"
+        }
+      },
+      "required": [
+        "sum_positive_shift",
+        "max_positive_shift",
+        "changed_groups"
+      ],
+      "additionalProperties": false
+    },
+    "stage": {
+      "type": "object",
+      "properties": {
+        "tier": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        "status": {
+          "enum": [
+            "OPTIMAL",
+            "FEASIBLE",
+            "UNKNOWN",
+            "INFEASIBLE"
+          ]
+        },
+        "objective_value": {
+          "anyOf": [
+            {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/nonnegative"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "best_bound": {
+          "anyOf": [
+            {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/nonnegative"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "elapsed_ms": {
+          "anyOf": [
+            {
+              "$ref": "urn:proarctic:replan:v1:common#/$defs/nonnegative"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "tier",
+        "status",
+        "objective_value",
+        "best_bound",
+        "elapsed_ms"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
