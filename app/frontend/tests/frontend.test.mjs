@@ -92,6 +92,32 @@ test('кандидат должен содержать те же партии, �
   assert.throws(() => parseRun(run), ServiceError);
 });
 
+test('повреждённые вложенные данные прогона дают ServiceError до отрисовки', () => {
+  const mutations = [
+    run => { run.parties[0].location_id = {}; },
+    run => { run.operations = [null]; },
+    run => { run.operations = [{ id: 'bad', party_id: 'P1', kind: 'move', edge_id: {} }]; },
+    run => { run.facts = [null]; },
+    run => { run.facts = [{ operation_id: 'P1-LOAD', start_tick: 2, end_tick: 1, state: 'completed' }]; },
+    run => { run.events = [null]; },
+    run => { run.events = [{ event_id: 'event', source: 'manual', type: 'rail_edge_closed', target_id: 'OC', available_tick: 2, parameters: { from_tick: {} } }]; },
+    run => { run.manual_events = [{ event_id: 'event', source: 'manual', type: 'rail_edge_closed', target_id: 'OC', available_tick: null, parameters: {} }]; },
+    run => { run.targets = [null]; },
+    run => { run.timeline = [{ tick: 1, kind: 'operation_started', label: {} }]; },
+    run => { run.message = {}; },
+    run => { run.candidate.message = {}; },
+  ];
+  for (const mutate of mutations) {
+    const run = simulation();
+    mutate(run);
+    assert.throws(() => parseRun(run), ServiceError);
+  }
+  const supported = simulation();
+  supported.operations = [{ id: 'P1-WAIT-M', party_id: 'P1', kind: 'wait', edge_id: null, service_id: null, from_location_id: 'M', to_location_id: 'M' }];
+  supported.events = [{ event_id: 'event', source: 'manual', type: 'rail_edge_closed', target_id: 'OC', available_tick: null, parameters: null }];
+  assert.equal(parseRun(supported).events[0].parameters, null);
+});
+
 test('автоматический ход доступен только до границы решения в диспетчерском режиме', () => {
   const ready = { mode: 'operations', status: 'ready', tick: 12 };
   assert.equal(canAutoAdvance(ready), true);

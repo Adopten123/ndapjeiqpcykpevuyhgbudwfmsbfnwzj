@@ -126,13 +126,34 @@ function parseHeader(value: unknown): RunHeader {
     status: value.status as RunStatus, plan_version: value.plan_version };
 }
 
+const validRows = (value: unknown, valid: (row: unknown) => boolean) => value == null || Array.isArray(value) && value.every(valid);
+const optionalString = (value: Record<string, unknown>, key: string) => value[key] == null || typeof value[key] === 'string';
+const validSchedule = (value: unknown) => isRecord(value) && typeof value.operation_id === 'string'
+  && integer(value.start_tick) && integer(value.end_tick) && value.start_tick <= value.end_tick;
+
+function validOperation(value: unknown, partyIds: Set<string>) {
+  return isRecord(value) && typeof value.id === 'string' && typeof value.party_id === 'string' && partyIds.has(value.party_id)
+    && typeof value.kind === 'string' && ['location_id', 'from_location_id', 'to_location_id', 'edge_id', 'service_id']
+      .every(key => optionalString(value, key));
+}
+
+function validEvent(value: unknown, manual: boolean) {
+  if (!isRecord(value) || typeof value.event_id !== 'string' || typeof value.source !== 'string'
+    || typeof value.type !== 'string' || typeof value.target_id !== 'string'
+    || !['reason', 'message', 'status'].every(key => optionalString(value, key))) return false;
+  if (manual ? !integer(value.available_tick) : value.available_tick != null && !integer(value.available_tick)) return false;
+  if (value.received_tick != null && !integer(value.received_tick)) return false;
+  if (value.affected_parties != null && (!Array.isArray(value.affected_parties)
+    || !value.affected_parties.every(id => typeof id === 'string'))) return false;
+  return value.parameters == null || isRecord(value.parameters) && Object.values(value.parameters).every(integer);
+}
+
 function validPlan(value: unknown, partyIds: Set<string>): value is Plan {
   return isRecord(value) && Array.isArray(value.party_plans) && value.party_plans.length === partyIds.size && Array.isArray(value.scheduled_operations)
     && new Set(value.party_plans.map(party => party?.party_id)).size === partyIds.size && value.party_plans.every(party => isRecord(party)
       && typeof party.party_id === 'string' && partyIds.has(party.party_id) && typeof party.route_id === 'string'
       && typeof party.service_id === 'string' && integer(party.port_receipt_tick) && integer(party.recipient_receipt_tick))
-    && value.scheduled_operations.every(operation => isRecord(operation) && typeof operation.operation_id === 'string'
-      && integer(operation.start_tick) && integer(operation.end_tick) && operation.start_tick <= operation.end_tick);
+    && value.scheduled_operations.every(validSchedule);
 }
 
 export function parseRun(value: unknown): Run {
@@ -144,15 +165,23 @@ export function parseRun(value: unknown): Run {
     || !integer(row.source.complete_through_tick) || (row.source.next_tick != null && !integer(row.source.next_tick))
     || !Array.isArray(row.operations) || !Array.isArray(row.parties) || !Array.isArray(row.targets)) return invalid();
   if (row.parties.length < 1 || row.parties.length > maxPartyCount || !row.parties.every(party => isRecord(party)
-    && typeof party.id === 'string' && /^P[1-4]$/.test(party.id) && integer(party.due_tick))) return invalid();
+    && typeof party.id === 'string' && /^P[1-4]$/.test(party.id) && integer(party.due_tick)
+    && optionalString(party, 'location_id'))) return invalid();
   const partyIds = new Set<string>(row.parties.map(party => party.id));
   if (partyIds.size !== row.parties.length || !validPlan(row.base_plan, partyIds) || !validPlan(row.active_plan, partyIds)) return invalid();
+  if (!row.operations.every(operation => validOperation(operation, partyIds))
+    || !row.targets.every(target => isRecord(target) && typeof target.id === 'string' && typeof target.type === 'string'
+      && typeof target.label === 'string') || !optionalString(row, 'message')) return invalid();
   const candidate = row.candidate;
   if (candidate != null && (!isRecord(candidate) || typeof candidate.id !== 'string' || typeof candidate.status !== 'string'
-    || candidate.plan != null && !validPlan(candidate.plan, partyIds))) return invalid();
+    || !optionalString(candidate, 'message') || candidate.plan != null && !validPlan(candidate.plan, partyIds))) return invalid();
   if (header.status === 'candidate' && (!isRecord(candidate) || !['OPTIMAL', 'FEASIBLE'].includes(String(candidate.status)) || !candidate.plan)) return invalid();
-  const arrays = ['events', 'manual_events', 'facts', 'timeline'];
-  if (arrays.some(key => row[key] != null && !Array.isArray(row[key]))) return invalid();
+  if (!validRows(row.facts, fact => validSchedule(fact) && isRecord(fact)
+    && ['completed', 'in_progress'].includes(String(fact.state)))
+    || !validRows(row.events, event => validEvent(event, false))
+    || !validRows(row.manual_events, event => validEvent(event, true))
+    || !validRows(row.timeline, entry => isRecord(entry) && integer(entry.tick)
+      && typeof entry.kind === 'string' && typeof entry.label === 'string')) return invalid();
   const cargo = row.cargo === undefined ? { id: defaultCargoId, name: cargoNames[defaultCargoId] } : row.cargo;
   const route = row.route === undefined ? { id: defaultRouteId } : row.route;
   if (!isRecord(cargo) || typeof cargo.id !== 'string' || !Object.hasOwn(cargoNames, cargo.id)

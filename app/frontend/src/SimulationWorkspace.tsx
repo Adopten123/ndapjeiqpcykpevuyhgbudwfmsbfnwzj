@@ -7,7 +7,11 @@ import {
 import type { Run } from './simulation';
 import { SimulationEditor } from './SimulationEditor';
 import { RunCreation, RunRegistry } from './SimulationRunChooser';
-import { eventTitle, SimulationComparison, SimulationJournal, SimulationParties, SimulationTimeline } from './SimulationTimeline';
+import { eventTitle } from './simulation-presentation';
+import { SimulationComparison } from './SimulationComparison';
+import { SimulationJournal } from './SimulationJournal';
+import { SimulationParties } from './SimulationParties';
+import { SimulationTimeline } from './SimulationTimeline';
 import { loadingResult, openRun, useSimulationRun } from './useSimulationRun';
 import './simulation.css';
 

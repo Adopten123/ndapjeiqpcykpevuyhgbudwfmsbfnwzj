@@ -157,22 +157,5 @@ func run(logger *slog.Logger) error {
 	root.Handle("GET /api/health", handler)
 	root.Handle("/", auth.Middleware(approvalStore.Guard(protected)))
 	server := &http.Server{Addr: cfg.HTTPAddr, Handler: root, ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 10 * time.Second, WriteTimeout: 25 * time.Second, IdleTimeout: 60 * time.Second}
-	errorsCh := make(chan error, 1)
-	go func() { errorsCh <- server.ListenAndServe() }()
-	logger.Info("Локальный учебный сервер запущен", "address", cfg.HTTPAddr, "mode", "demo")
-	select {
-	case <-signals.Done():
-	case err = <-errorsCh:
-		if !errors.Is(err, http.ErrServerClosed) {
-			logger.Error("HTTP-сервер остановлен")
-		}
-	}
-	shutdown, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-	defer cancel()
-	serverErr := server.Shutdown(shutdown)
-	queueErr := queue.Stop(shutdown)
-	if serverErr != nil {
-		return serverErr
-	}
-	return queueErr
+	return serve(signals, server, queue.Stop, logger)
 }

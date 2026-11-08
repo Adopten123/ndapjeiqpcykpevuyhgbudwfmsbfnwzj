@@ -4,7 +4,7 @@ import { ServiceError } from './api';
 import { eventNames, simulationHorizon } from './simulation';
 import type { EventInput, EventType, Run, SimulationEvent } from './simulation';
 import { targetLabel } from './simulation-route';
-import { eventTitle, eventWindow } from './SimulationTimeline';
+import { eventTitle, eventWindow } from './simulation-presentation';
 
 type Save = (input: EventInput, id?: string) => Promise<void>;
 type Field = 'available_tick' | 'target_id' | 'type' | 'reason' | 'from_tick' | 'until_tick' | 'load_from_tick' | 'load_until_tick' | 'departure_tick';
